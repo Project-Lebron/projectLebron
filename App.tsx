@@ -1,33 +1,41 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from './src/screens/Home'
-import Stats from './src/screens/Stats'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./src/screens/HomeScreen";
+import Stats from "./src/screens/StatsScreen";
+import Profile from "./src/screens/ProfileScreen";
+import BottomNav from "./src/navigators/BottomNav";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-  <NavigationContainer>
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen 
-      name="Home"
-      component={Home}
-      options={{animation: 'slide_from_bottom'}}></Stack.Screen>
-      <Stack.Screen 
-      name="Stats"
-      component={Stats}
-      options={{animation: 'slide_from_bottom'}}></Stack.Screen>
-    </Stack.Navigator>
-  </NavigationContainer>
-  )
-}
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="Home"
+          component={BottomNav}
+          options={{ animation: "slide_from_bottom" }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Stats"
+          component={BottomNav}
+          options={{ animation: "slide_from_bottom" }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="Profile"
+          component={BottomNav}
+          options={{ animation: "slide_from_bottom" }}
+        ></Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
-export default App
+export default App;
 
-const styles = StyleSheet.create({})
-
+const styles = StyleSheet.create({});
 
 // import { StatusBar } from 'expo-status-bar';
 // import { StyleSheet, Text, View } from 'react-native';
