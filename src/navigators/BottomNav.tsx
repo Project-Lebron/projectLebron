@@ -25,24 +25,24 @@ const BottomNav = () => {
             tabBarStyle:styles.tabBarStyle,
         }}>
       
-      <Tab.Screen name="Stats" component={StatsScreen} // stats 
-        options={{
+      <Tab.Screen name="Stats" component={StatsScreen}
+        options={{ // stats icon
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="stats-chart" size={35} color={color} />
+            <Ionicons name="stats-chart" size={50} color={color} />
           ),}}>
         </Tab.Screen>
 
-      <Tab.Screen name="Home" component={HomeScreen} // homescreen
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="basketball" size={35} color={color} />
+      <Tab.Screen name="Home" component={HomeScreen}
+        options={{ // homescreen icon
+          tabBarIcon: ({ color, size }) => ( 
+            <Ionicons name="basketball" size={50} color={color} />
           ),}}>
       </Tab.Screen>
 
-      <Tab.Screen name="Profile" component={ProfileScreen} // profile
-        options={{
+      <Tab.Screen name="Profile" component={ProfileScreen}
+        options={{ // profile icon
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={35} color={color} />
+            <Ionicons name="person" size={50} color={color} />
           ),}}>
       </Tab.Screen>
 
@@ -53,15 +53,13 @@ const BottomNav = () => {
 const styles = StyleSheet.create({
 
 	tabBarStyle: {
-		height:80,
-		position:'absolute',
-		backgroundColor:'#ddd',
-		borderTopwidth:0,
-		elevation:0,
-		borderTopColor:'transparent',
+		height: 110,
+		position: 'absolute',
+		backgroundColor: '#ddd',
+		borderTopwidth: 0,
+		elevation: 0,
+		borderTopColor: 'transparent',
 	},
 });
-
-
 
 export default BottomNav;
