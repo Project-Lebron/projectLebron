@@ -1,13 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Dimensions, FlatList, Image,  SafeAreaView, TouchableOpacity} from "react-native";
 import React from "react";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
 import StatsScreen from "../screens/StatsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-//test
 
-// https://fonts.google.com/icons?selected=Material+Icons:sports_basketball:&icon.query=basketball
+//test
 
 const Tab = createBottomTabNavigator();
 
@@ -37,8 +36,7 @@ const styles = StyleSheet.create({
 		borderTopwidth:0,
 		elevation:0,
 		borderTopColor:'transparent',
-	}
-
+	},
 });
 
 
