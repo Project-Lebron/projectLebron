@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, SafeAreaView, StatusBar } from 'react-native';
 import React from 'react';
 
+// another test
+
 const StatsScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
