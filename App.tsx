@@ -6,7 +6,7 @@ import Home from "./src/screens/HomeScreen";
 import Stats from "./src/screens/StatsScreen";
 import Profile from "./src/screens/ProfileScreen";
 import BottomNav from "./src/navigators/BottomNav";
-
+//Test
 const Stack = createNativeStackNavigator();
 
 const App = () => {
