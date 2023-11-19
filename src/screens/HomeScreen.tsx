@@ -5,17 +5,22 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'light-content'} />
+
+      {/* title text */}
       <Text style={styles.titleText}>Project Lebron </Text>
 
+      {/* big circle */}
       <SafeAreaView style={styles.bigCircle}>
         <Text style={styles.bigCircleTxt}>0</Text>
       </SafeAreaView>
 
+      {/* text over small circles */}
       <SafeAreaView style={styles.tagsContainer}>
         <Text style={styles.tagsText}>Made</Text>
         <Text style={styles.tagsText}>Missed</Text>
       </SafeAreaView>
 
+      {/* small circles */}
       <SafeAreaView style={styles.bottomCircles}>
         <SafeAreaView style={styles.smallCircles}>
           <Text style={styles.smallCircleTxt}>0</Text>
@@ -25,6 +30,7 @@ const HomeScreen = () => {
         </SafeAreaView>
       </SafeAreaView>
 
+      {/* button */}
       <TouchableOpacity style={styles.startButton} onPress={() => console.log('Pressed!')}>
         <Text style={styles.startButtonText}>Start</Text>
       </TouchableOpacity>
