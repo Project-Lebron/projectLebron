@@ -12,7 +12,7 @@ const Tab = createMaterialTopTabNavigator();
 const TopNav = () => {
   return (
     <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="StatsHome"
         screenOptions={{
             tabBarActiveTintColor: "black",
             tabBarLabelStyle: { fontSize: 12},
