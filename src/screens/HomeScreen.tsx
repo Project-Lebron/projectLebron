@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
 import React from 'react'
-import type { HomeScreenProps } from "";
 
-
-const HomeScreen = ({ navigation }: HomeScreenProps) => {
+// https://stackoverflow.com/questions/63132548/react-navigation-5-error-binding-element-navigation-implicitly-has-an-any-ty
+const HomeScreen = ({ navigation}: {navigation: any}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'light-content'} />
@@ -52,6 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0D1B2A',
     alignItems: 'center',
   },
+  
   titleText: {
     color:'white',
     fontFamily: 'Roboto',
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "800",
   },
+
   bigCircle: {
     width: 250,
     height: 250,
@@ -71,17 +72,20 @@ const styles = StyleSheet.create({
     borderColor: "#415A77",
     borderWidth: 10,
   },
+
   bigCircleTxt: {
     color:'#415A77',
     fontFamily: 'Roboto',
     fontSize: 100,
     fontWeight: "900",
   },
+
   tagsContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   tagsText: {
     color:'#415A77',
     fontFamily: 'Roboto',
@@ -89,11 +93,13 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "900",
   },
+
   bottomCircles: {
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
   },
+
   smallCircles: {
     width: 160,
     height: 160,

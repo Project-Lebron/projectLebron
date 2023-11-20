@@ -12,6 +12,8 @@ import WorkoutEnd from "./src/screens/WorkoutEnd";
 
 const Stack = createNativeStackNavigator();
 
+
+
 const App = () => {
   return (
     <NavigationContainer>

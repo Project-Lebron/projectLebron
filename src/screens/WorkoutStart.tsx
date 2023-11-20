@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
 import React from 'react'
 
-const WorkoutStart = ({ navigation }) => {
+const WorkoutStart = ({ navigation }: {navigation: any}) => {
     return (
         <SafeAreaView style={styles.container}>
           <StatusBar barStyle={'light-content'} />

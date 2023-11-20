@@ -18,6 +18,7 @@ const BottomNav = () => {
 
   return (
     <Tab.Navigator
+        initialRouteName="HomeScreen"
         screenOptions={{
             headerShown: false,
         	tabBarHideOnKeyboard: true,

@@ -1,27 +1,46 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
 import React from 'react'
 
-const WorkoutEnd = ({ navigation }) => {
+const WorkoutEnd = ({ navigation }: {navigation: any}) => {
     return (
         <SafeAreaView style={styles.container}>
           <StatusBar barStyle={'light-content'} />
     
           {/* title text */}
           <Text style={styles.date}> 11.18.2023</Text>
-          <SafeAreaView style={styles.topContainer}>
+          <View style={styles.topContainer}>
             <Text style={styles.titleText}>Morning Shootaround </Text>
-          </SafeAreaView>
+          </View>
 
-          {/* big circle */}
-          <SafeAreaView style={styles.bigCircle}>
-            <Text style={styles.bigCircleTxt}>70%</Text>
-          </SafeAreaView>
+          <Text style={[styles.date, { marginBottom: 15 }]}>25 / 60</Text>
+
+          {/* top section */}
+          <View style={styles.mainContainer}>
+    
+            {/* stats on left */}
+            <View style={styles.topStatsContainer}>
+              <Text style={[styles.topStats, { color: '#6AA760' }]}>70%</Text>
+              <Text style={[styles.topStats, { color: '#fff' }]}>26:30</Text>
+            </View>
+
+            {/* middle circle */}
+            <View style={styles.bigCircle}>
+              <Text style={styles.bigCircleTxt}>70%</Text>
+            </View>
+
+            {/* right stats */}
+            <View style={styles.topStatsContainer}>
+              <Text style={[styles.topStats, { color: '#CF5A5A' }]}>70%</Text>
+              <Text style={[styles.topStats, { color: '#fff' }]}>7</Text>
+            </View>
+
+          </View>
 
           {/* boxes */}
-          <SafeAreaView style={styles.bottomBoxContainer}>
-            <SafeAreaView style={styles.bottomBoxes}></SafeAreaView>
-            <SafeAreaView style={styles.bottomBoxes}></SafeAreaView>
-          </SafeAreaView>
+          <View style={styles.bottomBoxContainer}>
+            <View style={styles.bottomBoxes}></View>
+            <View style={styles.bottomBoxes}></View>
+          </View>
     
           {/* button */}
           <TouchableOpacity 
@@ -51,7 +70,7 @@ const styles = StyleSheet.create({
       color:'white',
       fontFamily: 'Roboto',
       marginTop: 15,
-      marginBottom: 30,
+      marginBottom: 5,
       fontSize: 25,
       fontWeight: "800",
     },
@@ -63,6 +82,27 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "800",
       },
+    mainContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    topStatsContainer: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      marginTop: 20,
+      alignItems: 'center',
+    },
+    topStats: {
+      color:'#415A77',
+      fontFamily: 'Roboto',
+      marginTop: 30,
+      marginBottom: 30,
+      marginRight: 20,
+      marginLeft: 20,
+      fontSize: 25,
+      fontWeight: "800",
+    },
     bigCircle: {
       width: 190,
       height: 190,
