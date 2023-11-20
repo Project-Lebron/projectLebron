@@ -32,7 +32,7 @@ const BottomNav = () => {
           ),}}>
         </Tab.Screen>
 
-      <Tab.Screen name="Home" component={HomeScreen}
+      <Tab.Screen name="HomeScreen" component={HomeScreen}
         options={{ // homescreen icon
           tabBarIcon: ({ color, size }) => ( 
             <Ionicons name="basketball" size={50} color={color} />
@@ -53,7 +53,7 @@ const BottomNav = () => {
 const styles = StyleSheet.create({
 
 	tabBarStyle: {
-		height: 110,
+		height: 100,
 		position: 'absolute',
 		backgroundColor: '#ddd',
 		borderTopwidth: 0,

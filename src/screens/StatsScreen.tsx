@@ -6,9 +6,11 @@ import TopNav from "../navigators/TopNav";
 const StatsScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.titleContainer}>
+        <Text style={styles.titleScreen}>Stats</Text>
+      </SafeAreaView>
       <TopNav />
       <StatusBar barStyle={'light-content'} />
-      <Text style={styles.titleScreen}>Stats</Text>
     </SafeAreaView>
   )
 }
@@ -16,13 +18,17 @@ const StatsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#0D1B2A',
     justifyContent: 'center',
   },
   listTab: {
     flex: 1, 
     backgroundColor: '#fff',
     padding: 15
+  },
+  titleContainer: {
+    marginTop: 20,
+    alignItems: 'center',
   },
   titleScreen: {
     color:'white',

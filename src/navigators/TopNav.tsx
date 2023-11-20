@@ -15,8 +15,8 @@ const TopNav = () => {
         initialRouteName="StatsHome"
         screenOptions={{
             tabBarActiveTintColor: "black",
-            tabBarLabelStyle: { fontSize: 12},
-            tabBarStyle: { backgroundColor: 'white' }
+            tabBarLabelStyle: { fontSize: 12, color: "#fff"},
+            tabBarStyle: { backgroundColor: '#0D1B2A', marginTop: 30, }
         }}>
       <Tab.Screen name="History" component={HistoryScreen} options={{ tabBarLabel: "Test"}}></Tab.Screen>
       <Tab.Screen name="Weekly" component={WeeklyScreen}></Tab.Screen>

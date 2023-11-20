@@ -6,7 +6,10 @@ import Home from "./src/screens/HomeScreen";
 import Stats from "./src/screens/StatsScreen";
 import Profile from "./src/screens/ProfileScreen";
 import BottomNav from "./src/navigators/BottomNav";
+import WorkoutStart from "./src/screens/WorkoutStart";
+import WorkoutEnd from "./src/screens/WorkoutEnd";
 //Test
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -27,6 +30,14 @@ const App = () => {
           name="Profile"
           component={BottomNav}
           options={{ animation: "slide_from_bottom" }}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="WorkoutStart"
+          component={WorkoutStart}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="WorkoutEnd"
+          component={WorkoutEnd}
         ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

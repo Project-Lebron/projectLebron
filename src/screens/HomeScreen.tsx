@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
 import React from 'react'
+import type { HomeScreenProps } from "";
 
-const HomeScreen = () => {
+
+const HomeScreen = ({ navigation }: HomeScreenProps) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'light-content'} />
@@ -31,7 +33,12 @@ const HomeScreen = () => {
       </SafeAreaView>
 
       {/* button */}
-      <TouchableOpacity style={styles.startButton} onPress={() => console.log('Pressed!')}>
+      <TouchableOpacity 
+        style={styles.startButton} 
+        onPress={() => {
+          console.log('Pressed!')
+          navigation.navigate('WorkoutStart')
+        }}>
         <Text style={styles.startButtonText}>Start</Text>
       </TouchableOpacity>
 
