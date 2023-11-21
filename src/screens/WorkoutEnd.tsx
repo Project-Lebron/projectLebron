@@ -7,7 +7,7 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
           <StatusBar barStyle={'light-content'} />
     
           {/* title text */}
-          <Text style={styles.smallText}> 11.18.2023</Text>
+          <Text style={[styles.smallText, {marginBottom: 10}]}> 11.18.2023</Text>
           <View style={styles.topContainer}>
             <Text style={styles.titleText}>Morning Shootaround </Text>
           </View>
@@ -55,14 +55,64 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
           {/* two boxes */}
           <Text style={[styles.titleText, { fontSize: 16, marginBottom: 5, fontWeight: '800' }]}> previous workouts </Text>          
           <View style={styles.bottomBoxContainer}>
-            <TouchableOpacity style={styles.bottomBoxes}></TouchableOpacity>
-            <TouchableOpacity style={styles.bottomBoxes}></TouchableOpacity>
+
+            {/* left box */}
+            <TouchableOpacity style={styles.bottomBoxes}>
+              <View style={styles.smallCircles}></View>
+              <View style={[styles.labelContainer, {marginLeft: 5, alignItems: 'flex-end'}]}>
+                <Text style={[styles.boxText, { fontSize: 25 }]}>17:19</Text>        
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>11.20.23</Text>              
+              </View>
+            </TouchableOpacity>
+
+            {/* right box */}
+            <TouchableOpacity style={styles.bottomBoxes}>
+              <View style={styles.smallCircles}></View>
+              <View style={[styles.labelContainer, {marginLeft: 5, alignItems: 'flex-end'}]}>
+                <Text style={[styles.boxText, { fontSize: 25 }]}>17:19</Text>        
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>11.20.23</Text>              
+              </View>
+            </TouchableOpacity>
+
           </View>
 
           {/* big box */}
           <Text style={[styles.titleText, { fontSize: 16, marginBottom: 5, fontWeight: '800' }]}> weekly totals</Text>          
           <View style={styles.bottomBoxContainer}>
-            <View style={styles.bigBox}></View>
+
+            <TouchableOpacity style={styles.bigBox}>
+              <View style={styles.columnContainer}>
+                <View style={[styles.labelContainer, {margin: 10 }]}>
+                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
+                  <Text style={[styles.boxText, { fontSize: 40, marginTop: 5 }]}>17:19</Text>        
+                </View>
+                <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
+                  <View style={[styles.mediumCircles]}></View>      
+                </View>
+                <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
+                  <View style={[styles.mediumCircles]}></View>      
+                </View>
+              </View>
+              <View style={styles.columnContainer}>
+                <View style={[styles.labelContainer, {margin: 10 }]}>
+                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
+                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>17:19</Text>        
+                </View>
+                <View style={[styles.labelContainer, {margin: 10}]}>
+                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
+                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>17:19</Text>      
+                </View>
+                <View style={[styles.labelContainer, {margin: 10}]}>    
+                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
+                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>17:19</Text>                  
+                </View>
+                <View style={[styles.labelContainer, {margin: 10}]}>    
+                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
+                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>17:19</Text>                  
+                </View>
+              </View>
+            </TouchableOpacity>
+
           </View>
 
           {/* button */}
@@ -92,8 +142,8 @@ const styles = StyleSheet.create({
     titleText: {
       color:'white',
       fontFamily: 'Roboto',
-      marginTop: 10,
-      marginBottom: 5,
+      marginTop: 5,
+      marginBottom: 3,
       fontSize: 25,
       fontWeight: "800",
     },
@@ -107,7 +157,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: 20,
+      marginTop: 5,
     },
     topStatsContainer: {
       flexDirection: 'column',
@@ -167,40 +217,60 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     bottomBoxes: {
-      width: 160,
+      width: 165,
       height: 100,
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'row',
       borderRadius: 25,
-      marginTop: 15,
+      marginTop: 10,
       margin: 12,
       backgroundColor: '#415A77',
     },
-    bigBox: {
-      width: 350,
-      height: 150,
+    columnContainer: {
+      flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
+      marginBottom: 0,
+      marginTop: 0,
+    },
+    bigBox: {
+      width: 355,
+      height: 200,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
       borderRadius: 25,
-      marginTop: 15,
-      margin: 15,
+      marginTop: 10,
+      margin: 3,
       backgroundColor: '#415A77',
     },
-    innerSmallBox: {
-      flexDirection: 'row',
-
+    boxText: {
+      color:'#DCDCDC',
+      fontFamily: 'Roboto',
+      fontSize: 16,
+      fontWeight: "800",
+    },
+    boxRowContainer: {
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     smallCircles: {
-      width: 50,
-      height: 50,
+      width: 60,
+      height: 60,
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: 15,
       borderRadius: 150,
       backgroundColor: '#DCDCDC',
-      borderColor: "#415A77",
-      borderWidth: 6,
+    },
+    mediumCircles: {
+      width: 80,
+      height: 80,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 150,
+      backgroundColor: '#DCDCDC',
     },
     endButton: {
       width: 250,
@@ -209,7 +279,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       backgroundColor: '#415A77',
       fontFamily: 'Roboto',
-      marginTop: 20,
+      marginTop: 30,
       marginBottom: 30,
     },
     endButtonText: {
@@ -217,7 +287,8 @@ const styles = StyleSheet.create({
       fontFamily: 'Roboto',
       fontWeight: '900',
       fontSize: 20,
-      marginVertical: 15,
+      marginTop: 15,
+      marginBottom: 15,
     },
   })
 
