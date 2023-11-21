@@ -20,7 +20,7 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
               {/* top left */}
               <View style={styles.labelContainer}>
                 <Text style={styles.smallText}>Made</Text>
-                <Text style={[styles.topStats, { color: '#6AA760', fontSize: 35 }]}>25</Text>        
+                <Text style={[styles.topStats, { color: '#6AA760', fontSize: 30 }]}>25</Text>        
               </View>
 
               {/* bottom left */}
@@ -40,7 +40,7 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
               {/* top right */}
               <View style={styles.labelContainer}>
                 <Text style={styles.smallText}>Made</Text>
-                <Text style={[styles.topStats, { color: '#CF5A5A' , fontSize: 35}]}>35</Text>        
+                <Text style={[styles.topStats, { color: '#CF5A5A' , fontSize: 30}]}>35</Text>        
               </View>
 
               {/* bottom right */}

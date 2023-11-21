@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
 import React from 'react'
+import Stopwatch from '../components/Stopwatch';
 
 const WorkoutStart = ({ navigation }: {navigation: any}) => {
     return (
@@ -7,7 +8,7 @@ const WorkoutStart = ({ navigation }: {navigation: any}) => {
           <StatusBar barStyle={'light-content'} />
     
           {/* title text */}
-          <Text style={styles.titleText}>0:00 </Text>
+          <Stopwatch />
     
           {/* big circle */}
           <SafeAreaView style={styles.bigCircle}>
