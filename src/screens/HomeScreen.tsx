@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
     color: '#DCDCDC',
     fontFamily: 'Roboto',
     fontSize: 30,
+    fontWeight: '800',
     marginVertical: 15,
   }
 })

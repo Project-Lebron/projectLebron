@@ -55,24 +55,24 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
           {/* two boxes */}
           <Text style={[styles.titleText, { fontSize: 16, marginBottom: 5, fontWeight: '800' }]}> previous workouts </Text>          
           <View style={styles.bottomBoxContainer}>
-            <View style={styles.bottomBoxes}></View>
-            <View style={styles.bottomBoxes}></View>
+            <TouchableOpacity style={styles.bottomBoxes}></TouchableOpacity>
+            <TouchableOpacity style={styles.bottomBoxes}></TouchableOpacity>
           </View>
 
           {/* big box */}
-          <Text style={[styles.titleText, { fontSize: 16, marginBottom: 5, fontWeight: '800' }]}> previous workouts </Text>          
+          <Text style={[styles.titleText, { fontSize: 16, marginBottom: 5, fontWeight: '800' }]}> weekly totals</Text>          
           <View style={styles.bottomBoxContainer}>
             <View style={styles.bigBox}></View>
           </View>
-    
+
           {/* button */}
           <TouchableOpacity
-            style={styles.startButton} 
+            style={styles.endButton} 
             onPress={() => {
               console.log('GO to STATS!')
               navigation.navigate('Home')
             }}>
-            <Text style={styles.startButtonText}>Save Workout</Text>
+            <Text style={styles.endButtonText}>Save Workout</Text>
           </TouchableOpacity>
     
         </SafeAreaView>
@@ -202,17 +202,17 @@ const styles = StyleSheet.create({
       borderColor: "#415A77",
       borderWidth: 6,
     },
-    startButton: {
+    endButton: {
       width: 250,
       heigth: 40,
-      borderRadius: 20,
+      borderRadius: 15,
       alignItems: 'center',
       backgroundColor: '#415A77',
       fontFamily: 'Roboto',
       marginTop: 20,
       marginBottom: 30,
     },
-    startButtonText: {
+    endButtonText: {
       color: '#DCDCDC',
       fontFamily: 'Roboto',
       fontWeight: '900',

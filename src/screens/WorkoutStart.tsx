@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
       fontFamily: 'Roboto',
       fontSize: 30,
       marginVertical: 15,
+      fontWeight: '800',
     },
     bottomText: {
         color:'#fff',
