@@ -57,7 +57,7 @@ const HomeScreen = ({ navigation}: {navigation: any}) => {
         style={styles.startButton} 
         onPress={() => {
           console.log('Pressed!')
-          navigation.navigate('WorkoutStart')
+          navigation.navigate('WorkoutStart', { autoStart: true })
         }}>
         <Text style={styles.startButtonText}>Start</Text>
       </TouchableOpacity>

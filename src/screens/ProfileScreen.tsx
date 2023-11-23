@@ -1,11 +1,16 @@
 import { StyleSheet, Text, View, SafeAreaView, StatusBar } from 'react-native'
 import React from 'react'
+import Stopwatch from '../components/Stopwatch';
+
 
 const ProfileScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'light-content'} />
-      <Text style={styles.titleScreen}>Profile</Text>
+        <Text style={styles.titleScreen}>Profile</Text>
+      <SafeAreaView>
+        <Stopwatch />
+      </SafeAreaView>
     </SafeAreaView>
   )
 }
