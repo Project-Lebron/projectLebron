@@ -1,14 +1,21 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
 import React from 'react'
 import Stopwatch from '../components/Stopwatch';
+import { useRoute } from '@react-navigation/native';
 
-const WorkoutStart = ({ navigation }: {navigation: any}) => {
+
+const WorkoutStart = ({ navigation }: {navigation: any}) => { //type check fix later
+
+    const route = useRoute();
+    const autoStart = (route as any).params?.autoStart || false; //there's a type checking error here, I got rid of it manually, but we should fix it properly later 
+  
+
     return (
         <SafeAreaView style={styles.container}>
           <StatusBar barStyle={'light-content'} />
     
           {/* title text */}
-          <Stopwatch />
+          <Stopwatch autoStart={autoStart} />
     
           {/* big circle */}
           <SafeAreaView style={styles.bigCircle}>

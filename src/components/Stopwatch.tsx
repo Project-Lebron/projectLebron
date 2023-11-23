@@ -1,14 +1,23 @@
-import React, { useState, useRef } from 'react'; 
+import React, { useState, useRef, useEffect } from 'react'; 
 import { View, Text, StyleSheet, TouchableOpacity }  
     from 'react-native'; 
 
-const Stopwatch = () => {
+const Stopwatch = ({autoStart = false}) => {
 
     // State and refs to manage time and stopwatch status 
     const [time, setTime] = useState(0); 
     const [running, setRunning] = useState(false); 
     const intervalRef = useRef<NodeJS.Timeout | null>(null); 
     const startTimeRef = useRef<number>(0);
+    interface WorkoutStartParams {
+        autoStart?: boolean;
+    }
+
+    useEffect(() => {
+        if (autoStart) {
+            startStopwatch();
+        }
+    }, [autoStart]);
 
     // Function to start the stopwatch 
     const startStopwatch = (): void=> { 
@@ -52,7 +61,7 @@ const Stopwatch = () => {
     return ( 
         <View style={styles.container}> 
             <Text style={styles.timeText}>{formattedTime}</Text> 
-            <View style={styles.buttonContainer}> 
+            {/* <View style={styles.buttonContainer}> 
                 {running ? ( 
                     <TouchableOpacity 
                         style={[styles.button, styles.pauseButton]} 
@@ -88,7 +97,7 @@ const Stopwatch = () => {
                         </Text> 
                     </TouchableOpacity> 
                 )} 
-            </View> 
+            </View>  */}
         </View> 
     ); 
 }
@@ -110,8 +119,9 @@ const styles = StyleSheet.create({
         color: "blue", 
     }, 
     timeText: { 
-        fontSize: 48,
-        color: '#fff', 
+        fontSize: 60,
+        color: '#fff',
+        fontFamily: 'Roboto', 
     }, 
     buttonContainer: { 
         flexDirection: 'row', 
