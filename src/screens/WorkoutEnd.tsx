@@ -1,7 +1,59 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+const url = 'http://127.0.0.1:5000/player-stats';
 
 const WorkoutEnd = ({ navigation }: {navigation: any}) => {
+    const [playerData, setPlayerData] = useState({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, highestStreak: 0, streak: 0, date: "", timeOfSession: 0});
+      
+    function formatTime(seconds: number): string {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+    
+      // Padding single digits with '0' for consistent formatting
+      const formattedHours = hours.toString().padStart(2, '0');
+      const formattedMinutes = minutes.toString().padStart(2, '0');
+      const formattedSeconds = remainingSeconds.toString().padStart(2, '0');
+    
+      return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+    }
+
+    // Define an async function to fetch JSON data
+    async function fetchJsonData(url: string): Promise<any> {
+      try {
+          // Fetch data from the provided URL
+          const response = await fetch(url);
+          // Parse the response as JSON
+          const data = await response.json();
+          return data;
+      } catch (error) {
+          // Handle any errors that occur during the fetch
+          console.error('Error fetching data:', error);
+          throw error;
+      }
+    }
+
+    useEffect(() => {
+      // Function to fetch data
+      const fetchData = () => {
+        fetchJsonData(url)
+          .then(data => {
+            const latestData = data[data.length - 1];
+            setPlayerData(latestData);
+          })
+          .catch(error => console.error('Error in fetching data:', error));
+      };
+    
+      // Initial fetch
+      fetchData();
+    
+      // Set up polling
+      const interval = setInterval(fetchData, 10000); // Polling every 10 seconds
+    
+      // Clear interval on component unmount
+      return () => clearInterval(interval);
+    }, []);
+
     return (
         <SafeAreaView style={styles.container}>
           <StatusBar barStyle={'light-content'} />
@@ -20,33 +72,33 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
               {/* top left */}
               <View style={styles.labelContainer}>
                 <Text style={styles.smallText}>Made</Text>
-                <Text style={[styles.topStats, { color: '#6AA760', fontSize: 30 }]}>25</Text>        
+                <Text style={[styles.topStats, { color: '#6AA760', fontSize: 30 }]}>{playerData.shotsMade}</Text>        
               </View>
 
               {/* bottom left */}
               <View style={styles.labelContainer}>
                 <Text style={styles.smallText}>Time</Text>
-                <Text style={[styles.topStats, { color: '#fff' }]}>1:26:30</Text>
+                <Text style={[styles.topStats, { color: '#fff' }]}>{formatTime(playerData.timeOfSession)}</Text>
               </View>
             </View>
 
             {/* middle circle */}
             <View style={styles.bigCircle}>
-              <Text style={styles.bigCircleTxt}>70%</Text>
+              <Text style={styles.bigCircleTxt}>{playerData.shotsTaken != 0 ? (Math.round((playerData.shotsMade/playerData.shotsTaken)*100)).toString() + "%" : 0}</Text>
             </View>
 
             {/* right stats */}
             <View style={styles.topStatsContainer}>
               {/* top right */}
               <View style={styles.labelContainer}>
-                <Text style={styles.smallText}>Made</Text>
-                <Text style={[styles.topStats, { color: '#CF5A5A' , fontSize: 30}]}>35</Text>        
+                <Text style={styles.smallText}>Missed</Text>
+                <Text style={[styles.topStats, { color: '#CF5A5A' , fontSize: 30}]}>{playerData.shotsMissed}</Text>        
               </View>
 
               {/* bottom right */}
               <View style={styles.labelContainer}>
                 <Text style={styles.smallText}>Total</Text>
-                <Text style={[styles.topStats, { color: '#fff' }]}>25 / 60</Text>
+                <Text style={[styles.topStats, { color: '#fff' }]}>{playerData.shotsMade} / {playerData.shotsTaken}</Text>
               </View>
             </View>
 

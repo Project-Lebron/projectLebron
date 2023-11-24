@@ -1,9 +1,30 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
 import { useEffect, useState } from 'react'
 import React from 'react'
+const url = 'http://127.0.0.1:5000/player-stats';
 
 // https://stackoverflow.com/questions/63132548/react-navigation-5-error-binding-element-navigation-implicitly-has-an-any-ty
 const HomeScreen = ({ navigation}: {navigation: any}) => {
+
+  // Define an async function to fetch JSON data
+  async function fetchJsonData(url: string): Promise<any> {
+    try {
+        // Fetch data from the provided URL
+        const response = await fetch(url);
+        // Parse the response as JSON
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        // Handle any errors that occur during the fetch
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+  }
+
+  fetchJsonData(url)
+    .then(data => console.log('Fetched data:', data))
+    .catch(error => console.error('Error in fetching data:', error));
+  // GET LAST ELEMENT IN LIST AND PUT THAT AS THING
 
   return (
     <SafeAreaView style={styles.container}>
