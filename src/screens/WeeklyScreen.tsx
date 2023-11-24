@@ -1,76 +1,122 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const WeeklyScreen = () => {
   return (
-    <View style={styles.container}>
 
-      {/* Weekly Totals */}
-      <Text style={styles.weeklyTotals}>Weekly Totals</Text>
-      <View style={styles.statsContainer}>
+    <View style={{flex:1, backgroundColor: '#0D1B2A'}}>
+      
+      <View style={styles.topContainer}>
+        <Text style={styles.dateText}>Nov 19 - 25</Text>
+      </View>
+
+
+      <ScrollView style={styles.container}>
         
-      <View style={styles.columnContainer}>
-                <View style={[styles.labelContainer, {margin: 10 }]}>
-                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
-                  <Text style={[styles.boxText, {fontSize: 40, marginTop: 5}]}>17:19</Text>        
-                </View>
-                <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
-                  <View style={[styles.mediumCircles]}></View>      
-                </View>
-                <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
-                  <View style={[styles.mediumCircles]}></View>      
-                </View>
+        {/* Weekly Totals */}
+        <Text style={styles.weeklyTotals}>Weekly Totals</Text>
+        <View style={styles.statsContainer}>
+          
+        <View style={styles.columnContainer}>
+              <View style={[styles.labelContainer, {margin: 10 }]}>
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
+                <Text style={[styles.boxText, {fontSize: 40, marginTop: 5}]}>17:19</Text>        
               </View>
-              <View style={styles.columnContainer}>
-                <View style={[styles.labelContainer, {margin: 10 }]}>
-                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Total</Text>      
-                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>192</Text>        
-                </View>
-                <View style={[styles.labelContainer, {margin: 10}]}>
-                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Made</Text>      
-                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>61</Text>      
-                </View>
-                <View style={[styles.labelContainer, {margin: 10}]}>    
-                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Missed</Text>      
-                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>131</Text>                  
-                </View>
-                <View style={[styles.labelContainer, {margin: 10}]}>    
-                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Best Streak</Text>      
-                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>8</Text>                  
-                </View>
+              <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
+                <View style={[styles.mediumCircles]}></View>      
               </View>
+              <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
+                <View style={[styles.mediumCircles]}></View>      
+              </View>
+            </View>
+            <View style={styles.columnContainer}>
+              <View style={[styles.labelContainer, {margin: 10 }]}>
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>Total</Text>      
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>192</Text>        
+              </View>
+              <View style={[styles.labelContainer, {margin: 10}]}>
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>Made</Text>      
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>61</Text>      
+              </View>
+              <View style={[styles.labelContainer, {margin: 10}]}>    
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>Missed</Text>      
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>131</Text>                  
+              </View>
+              <View style={[styles.labelContainer, {margin: 10}]}>    
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>Best Streak</Text>      
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>8</Text>                  
+              </View>
+            </View>
+        </View>
 
-      </View>
+        {/* Daily Charts */}
+        <Text style={styles.dailyCharts}>Daily Charts</Text>
+        <View style={styles.chartsContainer}>
+        </View>
 
-      {/* Daily Charts */}
-      <Text style={styles.dailyCharts}>Daily Charts</Text>
-      <View style={styles.chartsContainer}>
-      </View>
+
+        {/* Daily Charts */}
+        <Text style={styles.dailyCharts}>Daily Charts</Text>
+        <View style={styles.chartsContainer}>
+        </View>
+
+
+        {/* Daily Charts */}
+        <Text style={styles.dailyCharts}>Daily Charts</Text>
+        <View style={[styles.chartsContainer, {marginBottom: 100}]}>
+        </View>
+
+    
+      </ScrollView>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#415A77',
-    alignItems: 'flex-start', // Align content to the left
+    // alignItems: 'flex-start', // Align content to the left
     paddingTop: 20, // Padding from top
     paddingLeft: 20, // Padding from left
+    borderRadius: 40,
+    flex: 1,
+  },
+
+  dateText: {
+    color:'white',
+    fontSize: 28,
+    marginTop: 20,
+    fontWeight: '900',
+  },
+
+  topContainer: {
+    width: '100%',
+    height: 130,
+    paddingBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
+  },
+
+  topPart: {
+    width: '100%',
+    backgroundColor: 'black',
   },
 
   // Weekly Totals
   weeklyTotals: {
     color:'white',
     fontSize: 28,
+    marginTop: 20,
     fontWeight: 'bold',
   },
+  
   statsContainer: {
     backgroundColor: 'white',
     borderRadius: 25,
     padding: 20,
-    width: 410, 
+    width: '100%', 
     height: 205, 
     marginTop: 15,
     marginHorizontal: -10,
@@ -84,21 +130,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 45,
   },
+
   chartsContainer: {
     backgroundColor: '#0D1B2A',
     borderRadius: 25,
-    padding: 20,
-    width: 410, 
-  height: 205, 
+    padding: 30,
+    width: '100%',
+    height: 205, 
     marginTop: 15,
     marginHorizontal: -10,
     flex: 0, // Prevent the container from growing
   },
 
-  topContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   titleText: {
     color:'white',
     fontFamily: 'Roboto',
@@ -107,6 +150,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "800",
   },
+  
   smallText: {
       color:'#415A77',
       fontFamily: 'Roboto',

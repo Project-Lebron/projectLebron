@@ -121,7 +121,8 @@ const styles = StyleSheet.create({
     timeText: { 
         fontSize: 60,
         color: '#fff',
-        fontFamily: 'Roboto', 
+        fontFamily: 'Roboto',
+        fontWeight: '800', 
     }, 
     buttonContainer: { 
         flexDirection: 'row', 
