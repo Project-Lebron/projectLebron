@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
+import { useEffect, useState } from 'react'
 import React from 'react'
 
 // https://stackoverflow.com/questions/63132548/react-navigation-5-error-binding-element-navigation-implicitly-has-an-any-ty
@@ -36,6 +37,33 @@ const HomeScreen = ({ navigation}: {navigation: any}) => {
         style={styles.startButton} 
         onPress={() => {
           console.log('Pressed!')
+          const request = new Request("http://127.0.0.1:5000/start", {
+            method: "POST",
+            body: '{"foo": "bar"}',
+          });
+
+          fetch(request)
+            .then((response) => {
+              if (response.status === 200) {
+                return response.json();
+              } else {
+                throw new Error("Something went wrong on API server!");
+              }
+            })
+            .then((response) => {
+              console.debug(response);
+              // …
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+
+
+          const url = request.url;
+          const method = request.method;
+          const credentials = request.credentials;
+          const bodyUsed = request.bodyUsed;
+          
           navigation.navigate('WorkoutStart')
         }}>
         <Text style={styles.startButtonText}>Start</Text>
