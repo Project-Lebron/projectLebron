@@ -1,10 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 
 const MonthlyScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>MonthlyScreen</Text>
+      
+      <View style={styles.topBox}>
+      </View>
+      <View style={styles.bottomBox}>
+      </View>
+
     </View>
   )
 }
@@ -12,7 +17,20 @@ const MonthlyScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#415A77',
+    alignItems: 'center',
+  },
+
+  topBox: {
+    flex: 1,
+    height: 800,
+    backgroundColor: '#DCDCDC',
+    alignItems: 'center',
+  },
+
+  bottomBox: {
+    flex: 1,
+    height: 800,
+    backgroundColor: '#',
     alignItems: 'center',
   }
 })
