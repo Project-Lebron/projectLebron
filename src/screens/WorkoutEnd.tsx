@@ -3,8 +3,70 @@ import React, { useState, useEffect } from 'react';
 const url = 'http://127.0.0.1:5000/player-stats';
 
 const WorkoutEnd = ({ navigation }: {navigation: any}) => {
-    const [playerData, setPlayerData] = useState({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, highestStreak: 0, streak: 0, date: "", timeOfSession: 0});
-      
+    const [playerData, setPlayerData] = useState({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, highestStreak: 0, streak: 0, date: "Sat Jan 1 00:00:00 0000", timeOfSession: 0});
+    const [weekData, setWeekData] = useState({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0})
+    const [past2Data, setPast2Data] = useState([
+      { shotsMade: 0,
+        shotsTaken: 0,
+        date: "Sat Jan 1 00:00:00 0000",
+        timeOfSession: 0,
+      },
+      { shotsMade: 0,
+        shotsTaken: 0,
+        date: "Sat Jan 1 00:00:00 0000",
+        timeOfSession: 0,
+      }
+    ])
+
+    function convertToISO8601(dateStr: string): string {
+      const parts = dateStr.match(/(\w+) (\w+) (\d+) (\d+):(\d+):(\d+) (\d+)/);
+      if (!parts) {
+          throw new Error('Invalid date format');
+      }
+  
+      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const monthIndex = monthNames.indexOf(parts[2]);
+      const month = monthIndex >= 0 ? (monthIndex + 1).toString().padStart(2, '0') : '00';
+  
+      return `${parts[7]}-${month}-${parts[3]}T${parts[4]}:${parts[5]}:${parts[6]}Z`;
+    }
+
+    function formatDate(inputDateStr: string): string {
+      console.log(inputDateStr);
+      // Define the month names
+      const monthNames: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  
+      // Split the input date string into components
+      const parts: string[] = inputDateStr.split(' ');
+  
+      // Extract the components of the date
+      const year: string = parts[parts.length - 1]; // Year is the last part of the string
+      const monthIndex: number = monthNames.indexOf(parts[1]);
+      const day: string = parts[2];
+  
+      // Zero-pad the day and month if necessary
+      const formattedDay: string = day.padStart(2, '0');
+      const formattedMonth: string = (monthIndex + 1).toString().padStart(2, '0'); // +1 because months are 0-indexed
+  
+      // Return the formatted date in "DD.MM.YYYY" format
+      return `${formattedDay}.${formattedMonth}.${year}`;
+  }
+  
+  function isDateInPastWeek(dateStr: string): boolean {
+      try {
+          const isoDateStr = convertToISO8601(dateStr);
+          const date = new Date(isoDateStr);
+  
+          const currentDate = new Date();
+          const oneWeekAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
+  
+          return date >= oneWeekAgo && date <= currentDate;
+      } catch (e) {
+          console.error(e);
+          return false;
+      }
+  }
+  
     function formatTime(seconds: number): string {
       const hours = Math.floor(seconds / 3600);
       const minutes = Math.floor((seconds % 3600) / 60);
@@ -40,6 +102,52 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
           .then(data => {
             const latestData = data[data.length - 1];
             setPlayerData(latestData);
+            var weekData = {
+              shotsMade: 0,
+              shotsTaken: 0,
+              shotsMissed: 0,
+              timeOfSession: 0,
+              highestStreak: 0,
+            }
+            for (let i=data.length-1;i>=0;i--) {
+              if (isDateInPastWeek(data[i]['date'])) {
+                weekData.shotsMade += data[i].shotsMade;
+                weekData.shotsTaken += data[i].shotsTaken;
+                weekData.shotsMissed += data[i].shotsMissed;
+                weekData.timeOfSession += data[i].timeOfSession;
+                if (data[i].highestStreak > weekData.highestStreak) {
+                  weekData.highestStreak = data[i].highestStreak;
+                }
+              } else {
+                break;
+              }
+            }
+            setWeekData(weekData);
+
+            var past2Data = [
+              { shotsMade: 0,
+                shotsTaken: 0,
+                date: "00.00.0000",
+                timeOfSession: 0,
+              },
+              { shotsMade: 0,
+                shotsTaken: 0,
+                date: "00.00.0000",
+                timeOfSession: 0,
+              }
+            ] 
+            
+            var cnt=0, i=data.length-1;
+            while (i >= 0 && cnt < 2) {
+              past2Data[cnt].shotsMade = data[i].shotsMade;
+              past2Data[cnt].shotsTaken = data[i].shotsTaken;
+              past2Data[cnt].date = data[i].date;
+              past2Data[cnt].timeOfSession = data[i].timeOfSession;
+              cnt++;
+              i--;
+            }
+
+            setPast2Data(past2Data);
           })
           .catch(error => console.error('Error in fetching data:', error));
       };
@@ -59,7 +167,7 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
           <StatusBar barStyle={'light-content'} />
     
           {/* title text */}
-          <Text style={[styles.smallText, {marginBottom: 10}]}> 11.18.2023</Text>
+          <Text style={[styles.smallText, {marginBottom: 10}]}>{formatDate(playerData.date)}</Text>
           <View style={styles.topContainer}>
             <Text style={styles.titleText}>Morning Shootaround </Text>
           </View>
@@ -110,19 +218,21 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
 
             {/* left box */}
             <TouchableOpacity style={styles.bottomBoxes}>
-              <View style={styles.smallCircles}></View>
+              <View style={styles.smallCircles}>
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>{past2Data[0].shotsTaken != 0 ? (Math.round((past2Data[0].shotsMade/past2Data[0].shotsTaken)*100)).toString() + "%" : 0}</Text>
+              </View>
               <View style={[styles.labelContainer, {marginLeft: 5, alignItems: 'flex-end'}]}>
-                <Text style={[styles.boxText, { fontSize: 25 }]}>17:19</Text>        
-                <Text style={[styles.boxText, { color: '#1B263B'}]}>11.20.23</Text>              
+                <Text style={[styles.boxText, { fontSize: 17.5 }]}>{formatTime(past2Data[0].timeOfSession)}</Text>        
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>{formatDate(past2Data[0].date)}</Text>              
               </View>
             </TouchableOpacity>
 
             {/* right box */}
             <TouchableOpacity style={styles.bottomBoxes}>
-              <View style={styles.smallCircles}></View>
+              <View style={styles.smallCircles}><Text style={[styles.boxText, { color: '#1B263B'}]}>{past2Data[1].shotsTaken != 0 ? (Math.round((past2Data[1].shotsMade/past2Data[1].shotsTaken)*100)).toString() + "%" : 0}</Text></View>
               <View style={[styles.labelContainer, {marginLeft: 5, alignItems: 'flex-end'}]}>
-                <Text style={[styles.boxText, { fontSize: 25 }]}>17:19</Text>        
-                <Text style={[styles.boxText, { color: '#1B263B'}]}>11.20.23</Text>              
+                <Text style={[styles.boxText, { fontSize: 17.5 }]}>{formatTime(past2Data[1].timeOfSession)}</Text>        
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>{formatDate(past2Data[1].date)}</Text>              
               </View>
             </TouchableOpacity>
 
@@ -136,31 +246,35 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
               <View style={styles.columnContainer}>
                 <View style={[styles.labelContainer, {margin: 10 }]}>
                   <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
-                  <Text style={[styles.boxText, { fontSize: 40, marginTop: 5 }]}>17:19</Text>        
+                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{formatTime(weekData.timeOfSession)}</Text>        
                 </View>
                 <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
-                  <View style={[styles.mediumCircles]}></View>      
+                  <View style={[styles.mediumCircles]}>
+                    <Text style={[styles.boxText, { color: '#1B263B', fontSize: 22.5}]}>{weekData.shotsTaken != 0 ? (Math.round((weekData.shotsMade/weekData.shotsTaken)*100)).toString() + "%" : 0}</Text>
+                  </View>      
                 </View>
                 <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
-                  <View style={[styles.mediumCircles]}></View>      
+                  <View style={[styles.mediumCircles]}>
+                    <Text style={[styles.boxText, { color: '#1B263B', fontSize: 22.5}]}>{weekData.shotsMade}/{weekData.shotsTaken}</Text>
+                  </View>      
                 </View>
               </View>
               <View style={styles.columnContainer}>
                 <View style={[styles.labelContainer, {margin: 10 }]}>
-                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
-                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>17:19</Text>        
+                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Total</Text>      
+                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{weekData.shotsTaken}</Text>        
                 </View>
                 <View style={[styles.labelContainer, {margin: 10}]}>
-                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
-                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>17:19</Text>      
+                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Made</Text>      
+                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{weekData.shotsMade}</Text>      
                 </View>
                 <View style={[styles.labelContainer, {margin: 10}]}>    
-                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
-                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>17:19</Text>                  
+                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Missed</Text>      
+                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{weekData.shotsMissed}</Text>                  
                 </View>
                 <View style={[styles.labelContainer, {margin: 10}]}>    
-                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
-                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>17:19</Text>                  
+                  <Text style={[styles.boxText, { color: '#1B263B'}]}>Best Streak</Text>      
+                  <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{weekData.highestStreak}</Text>                  
                 </View>
               </View>
             </TouchableOpacity>

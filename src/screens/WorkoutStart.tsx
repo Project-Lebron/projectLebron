@@ -47,54 +47,53 @@ const WorkoutStart = ({ navigation }: {navigation: any}) => { //type check fix l
     const route = useRoute();
     const autoStart = (route as any).params?.autoStart || false; //there's a type checking error here, I got rid of it manually, but we should fix it properly later 
   
-
     return (
-        <SafeAreaView style={styles.container}>
-          <StatusBar barStyle={'light-content'} />
-    
-          {/* title text */}
-          <Stopwatch autoStart={autoStart} />
-    
-          {/* big circle */}
-          <SafeAreaView style={styles.bigCircle}>
-            <Text style={styles.bigCircleTxt}>{playerData.shotsTaken != 0 ? (Math.round((playerData.shotsMade/playerData.shotsTaken)*100)).toString() + "%" : 0}</Text>
-          </SafeAreaView>
-
-    
-          {/* text over small circles */}
-          <SafeAreaView style={styles.tagsContainer}>
-            <Text style={styles.tagsText}>Made</Text>
-            <Text style={styles.tagsText}>Missed</Text>
-          </SafeAreaView>
-    
-          {/* small circles */}
-          <SafeAreaView style={styles.bottomCircles}>
-            <SafeAreaView style={styles.smallCircles}>
-              <Text style={styles.smallCircleMade}>{playerData.shotsMade}</Text>
-            </SafeAreaView>
-            <SafeAreaView style={styles.smallCircles}>
-              <Text style={styles.smallCircleMissed}>{playerData.shotsMissed}</Text>
-            </SafeAreaView>
-          </SafeAreaView>
-    
-          {/* button */}
-          <TouchableOpacity 
-            style={styles.startButton} 
-            onPress={() => {
-              console.log('Pressed!')
-              navigation.navigate('WorkoutEnd')
-            }}>
-            <Text style={styles.startButtonText}>End</Text>
-          </TouchableOpacity>
-          
-          <SafeAreaView style={styles.tagsContainer}>
-            <Text style={styles.bottomText}>Pause</Text>
-            <Text style={styles.bottomText} onPress={() => {navigation.navigate('Home')
-            }}>Cancel</Text>
-          </SafeAreaView>
-    
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle={'light-content'} />
+  
+        {/* title text */}
+        <Stopwatch autoStart={autoStart} />
+  
+        {/* big circle */}
+        <SafeAreaView style={styles.bigCircle}>
+          <Text style={styles.bigCircleTxt}>{playerData.shotsTaken != 0 ? (Math.round((playerData.shotsMade/playerData.shotsTaken)*100)).toString() + "%" : 0}</Text>
         </SafeAreaView>
-      )
+
+  
+        {/* text over small circles */}
+        <SafeAreaView style={styles.tagsContainer}>
+          <Text style={styles.tagsText}>Made</Text>
+          <Text style={styles.tagsText}>Missed</Text>
+        </SafeAreaView>
+  
+        {/* small circles */}
+        <SafeAreaView style={styles.bottomCircles}>
+          <SafeAreaView style={styles.smallCircles}>
+            <Text style={styles.smallCircleMade}>{playerData.shotsMade}</Text>
+          </SafeAreaView>
+          <SafeAreaView style={styles.smallCircles}>
+            <Text style={styles.smallCircleMissed}>{playerData.shotsMissed}</Text>
+          </SafeAreaView>
+        </SafeAreaView>
+  
+        {/* button */}
+        <TouchableOpacity 
+          style={styles.startButton} 
+          onPress={() => {
+            console.log('Pressed!')
+            navigation.navigate('WorkoutEnd')
+          }}>
+          <Text style={styles.startButtonText}>End</Text>
+        </TouchableOpacity>
+        
+        <SafeAreaView style={styles.tagsContainer}>
+          <Text style={styles.bottomText}>Pause</Text>
+          <Text style={styles.bottomText} onPress={() => {navigation.navigate('Home')
+          }}>Cancel</Text>
+        </SafeAreaView>
+  
+      </SafeAreaView>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -125,7 +124,7 @@ const styles = StyleSheet.create({
     bigCircleTxt: {
       color:'#415A77',
       fontFamily: 'Roboto',
-      fontSize: 80,
+      fontSize: 70,
       fontWeight: "900",
     },
     tagsContainer: {
