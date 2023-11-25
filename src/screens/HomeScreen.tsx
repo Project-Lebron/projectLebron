@@ -4,7 +4,7 @@ import React from 'react'
 
 // https://stackoverflow.com/questions/63132548/react-navigation-5-error-binding-element-navigation-implicitly-has-an-any-ty
 const HomeScreen = ({ navigation}: {navigation: any}) => {
-  
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'light-content'} />
@@ -62,7 +62,7 @@ const HomeScreen = ({ navigation}: {navigation: any}) => {
           const credentials = request.credentials;
           const bodyUsed = request.bodyUsed;
           
-          navigation.navigate('WorkoutStart')
+          navigation.navigate('WorkoutStart', { autoStart: true })
         }}>
         <Text style={styles.startButtonText}>Start</Text>
       </TouchableOpacity>
