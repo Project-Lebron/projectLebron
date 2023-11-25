@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#0D1B2A',
   },
 
   topPart: {
