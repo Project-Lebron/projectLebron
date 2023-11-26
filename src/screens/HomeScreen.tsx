@@ -55,12 +55,6 @@ const HomeScreen = ({ navigation}: {navigation: any}) => {
             .catch((error) => {
               console.error(error);
             });
-
-
-          const url = request.url;
-          const method = request.method;
-          const credentials = request.credentials;
-          const bodyUsed = request.bodyUsed;
           
           navigation.navigate('WorkoutStart', { autoStart: true })
         }}>

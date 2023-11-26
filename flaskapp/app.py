@@ -41,9 +41,9 @@ cluster = client['player_data']
 # Connect to db
 stats_db = cluster['stats']
 
-@app.route("/start", methods=["POST","GET"])
+@app.route("/start", methods=["GET"])
 def result():
-    return jsonify({"Message":"Hello, World"})
+    return jsonify({"Message":"Starting, Function"})
     # missed=0
     # lastMiss=0
 
@@ -125,6 +125,12 @@ def mongo():
           data_list.append(document)
     json_string = json.dumps(data_list, cls=CustomJSONEncoder)
     return json_string
+
+@app.route('/end', methods = ['GET'])
+def exit():
+    COMPLETE = True
+    return jsonify({"Message":"Terminating, Function"})
+
 
 if __name__ == '__main__':
     app.run(debug=True)

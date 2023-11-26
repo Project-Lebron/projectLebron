@@ -81,6 +81,23 @@ const WorkoutStart = ({ navigation }: {navigation: any}) => { //type check fix l
           style={styles.startButton} 
           onPress={() => {
             console.log('Pressed!')
+            const request = new Request("http://127.0.0.1:5000/end");
+
+            fetch(request)
+              .then((response) => {
+                if (response.status === 200) {
+                  return response.json();
+                } else {
+                  throw new Error("Something went wrong on API server!");
+                }
+              })
+              .then((response) => {
+                console.debug(response);
+                // …
+              })
+              .catch((error) => {
+                console.error(error);
+              });
             navigation.navigate('WorkoutEnd')
           }}>
           <Text style={styles.startButtonText}>End</Text>
