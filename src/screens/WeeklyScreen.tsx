@@ -141,22 +141,6 @@ const styles = StyleSheet.create({
     marginHorizontal: -10,
     flex: 0, // Prevent the container from growing
   },
-
-  titleText: {
-    color:'white',
-    fontFamily: 'Roboto',
-    marginTop: 5,
-    marginBottom: 3,
-    fontSize: 25,
-    fontWeight: "800",
-  },
-  
-  smallText: {
-      color:'#415A77',
-      fontFamily: 'Roboto',
-      fontSize: 16,
-      fontWeight: "800",
-  },
   mainContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -188,13 +172,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  tagsText: {
-    color:'#415A77',
-    fontFamily: 'Roboto',
-    marginHorizontal: 50,
-    fontSize: 25,
-    fontWeight: "900",
   },
   bottomBoxContainer: {
       flexDirection: 'row',
@@ -258,15 +235,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 30,
   },
-  endButtonText: {
-    color: '#DCDCDC',
-    fontFamily: 'Roboto',
-    fontWeight: '900',
-    fontSize: 20,
-    marginTop: 15,
-    marginBottom: 15,
-  },
-
 })
 
 export default WeeklyScreen
