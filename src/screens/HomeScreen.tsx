@@ -80,10 +80,9 @@ const styles = StyleSheet.create({
   
   titleText: {
     color:'white',
-    fontFamily: 'Roboto',
     marginTop: 15,
     marginBottom: 50,
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: "800",
   },
 
