@@ -140,22 +140,6 @@ const styles = StyleSheet.create({
     marginHorizontal: -10,
     flex: 0, // Prevent the container from growing
   },
-
-  titleText: {
-    color:'white',
-    fontFamily: 'Roboto',
-    marginTop: 5,
-    marginBottom: 3,
-    fontSize: 25,
-    fontWeight: "800",
-  },
-  
-  smallText: {
-      color:'#415A77',
-      fontFamily: 'Roboto',
-      fontSize: 16,
-      fontWeight: "800",
-  },
   mainContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -167,16 +151,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 20,
     alignItems: 'center',
-  },
-  topStats: {
-    color:'#415A77',
-    fontFamily: 'Roboto',
-    marginTop: 10,
-    marginBottom: 30,
-    marginRight: 7,
-    marginLeft: 7,
-    fontSize: 24,
-    fontWeight: "800",
   },
   labelContainer: {
     flexDirection: 'column',

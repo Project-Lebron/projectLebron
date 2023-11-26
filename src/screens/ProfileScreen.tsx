@@ -8,8 +8,8 @@ const ProfileScreen = () => {
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'light-content'} />
         <Text style={styles.titleScreen}>Profile</Text>
-      <SafeAreaView>
-        <Stopwatch />
+      <SafeAreaView style={styles.bigCircle}>
+        <Text style={styles.bigCircleTxt}></Text>
       </SafeAreaView>
     </SafeAreaView>
   )
@@ -26,6 +26,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     fontSize: 32,
     fontWeight: 'bold',
+  },
+  bigCircle: {
+    width: 250,
+    height: 250,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+    borderRadius: 150,
+    backgroundColor: '#DCDCDC',
+    borderColor: "#415A77",
+    borderWidth: 10,
   },
 })
 
