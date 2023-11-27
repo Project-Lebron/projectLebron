@@ -8,37 +8,16 @@ const YearlyScreen = () => {
 
   const data = [
     {
-      name: "Seoul",
-      population: 21500000,
+      name: "made",
+      percentage: 33,
       color: "rgba(131, 167, 234, 1)",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     },
     {
-      name: "Toronto",
-      population: 2800000,
+      name: "missed",
+      percentage: 66,
       color: "#F00",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "Beijing",
-      population: 527612,
-      color: "red",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "New York",
-      population: 8538000,
-      color: "#ffffff",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "Moscow",
-      population: 11920000,
-      color: "rgb(0, 0, 255)",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     }
@@ -74,14 +53,13 @@ const YearlyScreen = () => {
             width: 900,
           },
         }}
-        accessor={"population"}
+        accessor={"percentage"}
         backgroundColor={"transparent"}
         paddingLeft={"70"}
         center={[0, 0]}
         absolute
       />
     
-
     </View>
   )
 }
@@ -99,6 +77,7 @@ const styles = StyleSheet.create({
   pieChart: {
     marginLeft: 50,
   },
+  
 
   dateText: {
     color:'white',

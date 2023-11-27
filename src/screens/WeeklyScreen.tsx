@@ -132,7 +132,7 @@ const WeeklyScreen = () => {
     <View style={{flex:1, backgroundColor: '#0D1B2A'}}>
       
       <View style={styles.topContainer}>
-        <Text style={styles.dateText}>Nov 19 - 25</Text>
+        <Text style={styles.dateText}>Nov 26 - Dec 3</Text>
       </View>
 
 
