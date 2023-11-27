@@ -86,6 +86,9 @@ const WeeklyScreen = () => {
               decimalPlaces: 2, // optional, defaults to 2dp
               color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
               labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              propsForHorizontalLabels: {
+                fontWeight: 'bold',
+              },
               style: {
                 borderRadius: 16,
                 justifyContent: 'center',

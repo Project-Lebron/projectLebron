@@ -1,7 +1,26 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
+import {
+  StackedBarChart
+} from "react-native-chart-kit";
 
 const MonthlyScreen = () => {
+
+  const data = {
+    labels: ["mon", "tues", "wed", "thurs", "fri", "sat", "sun"],
+    legend: ["made", "missed"],
+    data: [
+      [40, 60],
+      [50, 50],
+      [30, 70],
+      [25, 75],
+      [60, 40],
+      [80, 20],
+      [60, 40],
+    ],
+    barColors: ["#58B449", "#B53E3E"]
+  };
+
   return (
 
     <View style={{flex:1, backgroundColor: '#0D1B2A'}}>
@@ -50,8 +69,32 @@ const MonthlyScreen = () => {
         </View>
 
         {/* Daily Charts */}
-        <Text style={styles.dailyCharts}>Daily Charts</Text>
-        <View style={styles.chartsContainer}>
+        <Text style={[styles.dailyCharts, {marginBottom: 15}]}>Daily Charts</Text>
+        <View style={styles.barChartContainer}>
+          <StackedBarChart
+            style={styles.barChart}
+            data={data}
+            width={400}
+            height={200}
+            hideLegend={true}
+            withHorizontalLabels={false}
+            chartConfig={{
+              backgroundGradientFrom: "#415A77",
+              backgroundGradientTo: "#415A77",
+              decimalPlaces: 2, // optional, defaults to 2dp
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              propsForHorizontalLabels: {
+                fontWeight: 'bold',
+              },
+              style: {
+                borderRadius: 16,
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 900,
+              },
+            }}
+          />
         </View>
 
 
@@ -80,6 +123,19 @@ const styles = StyleSheet.create({
     paddingLeft: 20, // Padding from left
     borderRadius: 40,
     flex: 1,
+  },
+
+  barChartContainer: {
+    marginRight: 0,
+
+  },
+
+  barChart: {
+    backgroundColor:'#415A77',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    marginRight: 105,
   },
 
   dateText: {
@@ -140,22 +196,6 @@ const styles = StyleSheet.create({
     marginHorizontal: -10,
     flex: 0, // Prevent the container from growing
   },
-
-  titleText: {
-    color:'white',
-    fontFamily: 'Roboto',
-    marginTop: 5,
-    marginBottom: 3,
-    fontSize: 25,
-    fontWeight: "800",
-  },
-  
-  smallText: {
-      color:'#415A77',
-      fontFamily: 'Roboto',
-      fontSize: 16,
-      fontWeight: "800",
-  },
   mainContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -187,13 +227,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  tagsText: {
-    color:'#415A77',
-    fontFamily: 'Roboto',
-    marginHorizontal: 50,
-    fontSize: 25,
-    fontWeight: "900",
   },
   bottomBoxContainer: {
       flexDirection: 'row',
@@ -257,15 +290,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginBottom: 30,
   },
-  endButtonText: {
-    color: '#DCDCDC',
-    fontFamily: 'Roboto',
-    fontWeight: '900',
-    fontSize: 20,
-    marginTop: 15,
-    marginBottom: 15,
-  },
-
 })
+
 
 export default MonthlyScreen
