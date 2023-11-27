@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     borderTopColor: "transparent",
   },
   tabBarOptions: {
+    display: 'flex',
     backgroundColor: "transparent",
   },
   tabBarButton: {

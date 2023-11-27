@@ -9,7 +9,7 @@ const ProfileScreen = () => {
       <StatusBar barStyle={'light-content'} />
         <Text style={styles.titleScreen}>Profile</Text>
       <SafeAreaView style={styles.bigCircle}>
-        <Text style={styles.bigCircleTxt}></Text>
+
       </SafeAreaView>
     </SafeAreaView>
   )
