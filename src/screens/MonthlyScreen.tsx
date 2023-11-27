@@ -1,25 +1,37 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 import {
-  StackedBarChart
+  StackedBarChart,
+  ContributionGraph
 } from "react-native-chart-kit";
 
 const MonthlyScreen = () => {
 
   const data = {
-    labels: ["mon", "tues", "wed", "thurs", "fri", "sat", "sun"],
+    labels: ["week 1", "week 2", "week 3", "week 4"],
     legend: ["made", "missed"],
     data: [
       [40, 60],
       [50, 50],
       [30, 70],
       [25, 75],
-      [60, 40],
-      [80, 20],
-      [60, 40],
     ],
     barColors: ["#58B449", "#B53E3E"]
   };
+
+  const commitsData = [
+    { date: "2023-01-01", count: 1 },
+    { date: "2017-01-02", count: 2 },
+    { date: "2017-01-04", count: 3 },
+    { date: "2017-01-05", count: 4 },
+    { date: "2017-01-06", count: 5 },
+    { date: "2017-01-30", count: 2 },
+    { date: "2017-01-31", count: 3 },
+    { date: "2017-03-01", count: 2 },
+    { date: "2017-04-02", count: 4 },
+    { date: "2017-03-05", count: 2 },
+    { date: "2017-02-30", count: 4 }
+  ];
 
   return (
 
@@ -99,9 +111,36 @@ const MonthlyScreen = () => {
 
 
         {/* Daily Charts */}
-        <Text style={styles.dailyCharts}>Daily Charts</Text>
-        <View style={styles.chartsContainer}>
-        </View>
+        <Text style={[styles.dailyCharts, {marginBottom: 15}]}>Activity</Text>
+        <ContributionGraph
+          values={commitsData}
+          endDate={new Date("2023-01-31")}
+          numDays={30}
+          width={400}
+          height={400}
+          style={styles.boxChart}
+          horizontal={false}
+          tooltipDataAttrs={false} 
+          showMonthLabels={false}
+          squareSize={40}
+          gutterSize={4}
+          chartConfig={{
+            backgroundGradientFrom: "#415A77",
+            backgroundGradientTo: "#415A77",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            propsForHorizontalLabels: {
+              fontWeight: 'bold',
+            },
+            style: {
+              borderRadius: 16,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: 900,
+            },
+          }}
+        />
 
 
         {/* Daily Charts */}
@@ -135,7 +174,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-    marginRight: 105,
+    marginRight: 75,
+  },
+
+  boxChart: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   dateText: {
