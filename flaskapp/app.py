@@ -43,19 +43,69 @@ stats_db = cluster['stats']
 
 @app.route("/start", methods=["GET"])
 def result():
-    # for i in range(10):
-    #     stat = {
-    #         "ID": i,
-    #         "shotsTaken": 0,
-    #         "shotsMade":20,
-    #         "shotsMissed":5,
-    #         "highestStreak": 0,
-    #         "streak": 0,
-    #         "date": "Thurs Nov 23 00:00:00 2023",
-    #         "timeOfSession":0,
-    #         "status": "active",
-    #     }
-    #     stats_db.insert_one(stat)
+    # stats_db.delete_many({})
+    # stat1 = {
+    #     "ID": 1,
+    #     "shotsTaken": 1000000,
+    #     "shotsMade":20,
+    #     "shotsMissed":80,
+    #     "highestStreak": 7,
+    #     "streak": 3,
+    #     "date": "Tues Nov 14 11:53:58 2023",
+    #     "timeOfSession": 200,
+    #     "status": "complete",
+    # }
+    # stat2 = {
+    #     "ID": 2,
+    #     "shotsTaken": 400,
+    #     "shotsMade": 200,
+    #     "shotsMissed": 200,
+    #     "highestStreak": 18,
+    #     "streak": 2,
+    #     "date": "Fri Nov 24 16:53:58 2023",
+    #     "timeOfSession": 400,
+    #     "status": "complete",
+    # }
+    # stat3 = {
+    #     "ID": 3,
+    #     "shotsTaken": 100,
+    #     "shotsMade": 50,
+    #     "shotsMissed": 50,
+    #     "highestStreak": 10,
+    #     "streak": 2,
+    #     "date": "Mon Nov 20 16:53:58 2023",
+    #     "timeOfSession": 500,
+    #     "status": "complete",
+    # }
+    # stat4 = {
+    #     "ID": 4,
+    #     "shotsTaken": 500,
+    #     "shotsMade": 400,
+    #     "shotsMissed": 100,
+    #     "highestStreak": 100,
+    #     "streak": 2,
+    #     "date": "Wed Nov 22 16:53:58 2023",
+    #     "timeOfSession": 600,
+    #     "status": "complete",
+    # }
+    # stat5 = {
+    #     "ID": 5,
+    #     "shotsTaken": 2,
+    #     "shotsMade": 1,
+    #     "shotsMissed": 1,
+    #     "highestStreak": 1,
+    #     "streak": 1,
+    #     "date": "Thurs Nov 23 16:53:58 2023",
+    #     "timeOfSession": 500,
+    #     "status": "active",
+    # }
+
+    #stats_db.insert_one(stat1)
+    # stats_db.insert_one(stat2)
+    # stats_db.insert_one(stat3)
+    # stats_db.insert_one(stat4)
+    # stats_db.insert_one(stat5)
+
     
     return jsonify({"Message":"Starting, Function"})
     # missed=0

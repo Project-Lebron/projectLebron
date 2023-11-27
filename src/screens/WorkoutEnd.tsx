@@ -116,7 +116,7 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
 
             {/* middle circle */}
             <View style={styles.bigCircle}>
-              <Text style={styles.bigCircleTxt}>{playerData.shotsTaken != 0 ? (Math.round((playerData.shotsMade/playerData.shotsTaken)*100)).toString() + "%" : 0}</Text>
+              <Text style={styles.bigCircleTxt}>{playerData.shotsTaken != 0 ? (Math.round((playerData.shotsMade/playerData.shotsTaken)*100)).toString() + "%" : "0%"}</Text>
             </View>
 
             {/* right stats */}
@@ -143,7 +143,7 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
             {/* left box */}
             <TouchableOpacity style={styles.bottomBoxes}>
               <View style={styles.smallCircles}>
-                <Text style={[styles.boxText, { color: '#1B263B'}]}>{past2Data[0].shotsTaken != 0 ? (Math.round((past2Data[0].shotsMade/past2Data[0].shotsTaken)*100)).toString() + "%" : 0}</Text>
+                <Text style={[styles.boxText, { color: '#1B263B'}]}>{past2Data[0].shotsTaken != 0 ? (Math.round((past2Data[0].shotsMade/past2Data[0].shotsTaken)*100)).toString() + "%" : "0%"}</Text>
               </View>
               <View style={[styles.labelContainer, {marginLeft: 5, alignItems: 'flex-end'}]}>
                 <Text style={[styles.boxText, { fontSize: 17.5 }]}>{formatTime(past2Data[0].timeOfSession)}</Text>        
@@ -153,7 +153,7 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
 
             {/* right box */}
             <TouchableOpacity style={styles.bottomBoxes}>
-              <View style={styles.smallCircles}><Text style={[styles.boxText, { color: '#1B263B'}]}>{past2Data[1].shotsTaken != 0 ? (Math.round((past2Data[1].shotsMade/past2Data[1].shotsTaken)*100)).toString() + "%" : 0}</Text></View>
+              <View style={styles.smallCircles}><Text style={[styles.boxText, { color: '#1B263B'}]}>{past2Data[1].shotsTaken != 0 ? (Math.round((past2Data[1].shotsMade/past2Data[1].shotsTaken)*100)).toString() + "%" : "0%"}</Text></View>
               <View style={[styles.labelContainer, {marginLeft: 5, alignItems: 'flex-end'}]}>
                 <Text style={[styles.boxText, { fontSize: 17.5 }]}>{formatTime(past2Data[1].timeOfSession)}</Text>        
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>{formatDate(past2Data[1].date)}</Text>              
@@ -174,7 +174,7 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
                 </View>
                 <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
                   <View style={[styles.mediumCircles]}>
-                    <Text style={[styles.boxText, { color: '#1B263B', fontSize: 22.5}]}>{weekData.shotsTaken != 0 ? (Math.round((weekData.shotsMade/weekData.shotsTaken)*100)).toString() + "%" : 0}</Text>
+                    <Text style={[styles.boxText, { color: '#1B263B', fontSize: 22.5}]}>{weekData.shotsTaken != 0 ? (Math.round((weekData.shotsMade/weekData.shotsTaken)*100)).toString() + "%" : "0%"}</Text>
                   </View>      
                 </View>
                 <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>

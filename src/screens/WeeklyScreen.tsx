@@ -13,6 +13,32 @@ const url = 'http://127.0.0.1:5000/player-stats';
 
 const WeeklyScreen = () => {
 
+  function getCurrentWeekRange(): string {
+    // Get the current date
+    const currentDate = new Date();
+  
+    // Calculate the previous or current Monday
+    const dayOfWeek = currentDate.getDay();
+    const daysSinceMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+    const monday = new Date(currentDate);
+    monday.setDate(currentDate.getDate() - daysSinceMonday);
+  
+    // Calculate the next Sunday
+    const sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+  
+    // Function to format a date as "MMM. DD"
+    const formatDate = (date: Date): string => {
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
+      });
+    };
+  
+    // Format the start and end dates
+    return `${formatDate(monday)} - ${formatDate(sunday)}`;
+  }
+
   function getDayOfWeekWithinPastWeek(dateStr: string): number {
     const inputDate = moment(dateStr, 'ddd MMM DD HH:mm:ss YYYY');
     const currentDate = moment();
@@ -21,7 +47,7 @@ const WeeklyScreen = () => {
   
     if (daysDifference >= 0 && daysDifference <= 6) {
       // The date is within the past week, return the day of the week
-      return inputDate.day();
+      return inputDate.day()-1;
     } else {
       // The date is not within the past week
       return -1;
@@ -71,13 +97,15 @@ const WeeklyScreen = () => {
           ]
           for (let i=0;i<data.length;i++) {
             let index = getDayOfWeekWithinPastWeek(data[i].date);
+            console.log("date: " + data[i].date);
+            console.log("index: " + index);
             if (index != -1) {
               week_data[index].shotsMade += data[i].shotsMade;
-              week_data[index].shotsMissed += data[i].shotsMissed
+              week_data[index].shotsMissed += data[i].shotsMissed;
             }
           }
           setWeekData(week_data);
-          for (let i=data.length-1;i>=0;i--) {
+          for (let i=0;i<data.length;i++) {
             if (isDateInPastWeek(data[i]['date'])) {
               week_total.shotsMade += data[i].shotsMade;
               week_total.shotsTaken += data[i].shotsTaken;
@@ -86,8 +114,6 @@ const WeeklyScreen = () => {
               if (data[i].highestStreak > week_total.highestStreak) {
                 week_total.highestStreak = data[i].highestStreak;
               }
-            } else {
-              break;
             }
           }
           setWeekTotal(week_total);
@@ -107,7 +133,7 @@ const WeeklyScreen = () => {
   }, []);
 
   const data = {
-    labels: ["mon", "tues", "wed", "thurs", "fri", "sat", "sun"],
+    labels: ["Mon     ", "Tues   ", "Wed", "Thurs", "Fri", "Sat", "Sun"],
     legend: ["made", "missed"],
     data: [
       [weekData[0].shotsMade, weekData[0].shotsMissed],
@@ -122,8 +148,8 @@ const WeeklyScreen = () => {
   };
 
   const goalData = {
-    labels: ["taken", "made"], // optional
-    data: [0.4, 0.6]
+    labels: ["Taken", "Made"], // optional
+    data: [(weekTotal.shotsTaken > 500 ? 1 : weekTotal.shotsTaken/500), (weekTotal.shotsMade > 100 ? 1 : weekTotal.shotsMade/100)]
   };
 
   
@@ -132,7 +158,7 @@ const WeeklyScreen = () => {
     <View style={{flex:1, backgroundColor: '#0D1B2A'}}>
       
       <View style={styles.topContainer}>
-        <Text style={styles.dateText}>Nov 19 - 25</Text>
+        <Text style={styles.dateText}>Weekly</Text>
       </View>
 
 
@@ -145,31 +171,34 @@ const WeeklyScreen = () => {
         <View style={styles.columnContainer}>
               <View style={[styles.labelContainer, {margin: 10 }]}>
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
-                <Text style={[styles.boxText, {fontSize: 40, marginTop: 5}]}>17:19</Text>        
+                <Text style={[styles.boxText, {fontSize: 40, marginTop: 5}]}>{formatTime(weekTotal.timeOfSession)}</Text>        
               </View>
               <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
-                <View style={[styles.mediumCircles]}></View>      
+                <View style={[styles.mediumCircles]}>
+                <Text style={[styles.boxText, { fontSize: 20, marginTop: 5, color: 'white'}]}>{weekTotal.shotsTaken != 0 ? (Math.round((weekTotal.shotsMade/weekTotal.shotsTaken)*100)).toString() + "%" : "0%"}</Text></View>      
               </View>
               <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
-                <View style={[styles.mediumCircles]}></View>      
+                <View style={[styles.mediumCircles]}>
+                  <Text style={[styles.boxText, { fontSize: 20, marginTop: 5, color: 'white'}]}>{weekTotal.shotsMade} / {weekTotal.shotsTaken}</Text>
+                </View>      
               </View>
             </View>
             <View style={styles.columnContainer}>
               <View style={[styles.labelContainer, {margin: 10 }]}>
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Total</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>192</Text>        
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{weekTotal.shotsTaken}</Text>        
               </View>
               <View style={[styles.labelContainer, {margin: 10}]}>
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Made</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>61</Text>      
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{weekTotal.shotsMade}</Text>      
               </View>
               <View style={[styles.labelContainer, {margin: 10}]}>    
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Missed</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>131</Text>                  
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{weekTotal.shotsMissed}</Text>                  
               </View>
               <View style={[styles.labelContainer, {margin: 10}]}>    
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Best Streak</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>8</Text>                  
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{weekTotal.highestStreak}</Text>                  
               </View>
             </View>
         </View>
@@ -205,7 +234,7 @@ const WeeklyScreen = () => {
 
 
         {/* Daily Charts */}
-        <Text style={styles.dailyCharts}>Daily Goals</Text>
+        <Text style={styles.dailyCharts}>Weekly Goals</Text>
         <ProgressChart
           data={goalData}
           style={styles.progressChart}

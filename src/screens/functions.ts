@@ -12,7 +12,6 @@ export function convertToISO8601(dateStr: string): string {
   }
 
 export function formatDate(inputDateStr: string): string {
-    console.log(inputDateStr);
     // Define the month names
     const monthNames: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -39,7 +38,6 @@ export function isDateInPastWeek(dateStr: string): boolean {
 
         const currentDate = new Date();
         const oneWeekAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-
         return date >= oneWeekAgo && date <= currentDate;
     } catch (e) {
         console.error(e);
