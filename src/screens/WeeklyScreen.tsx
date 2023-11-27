@@ -1,23 +1,120 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
+import { useState, useEffect } from 'react';
+import moment from 'moment';
 import {
   StackedBarChart
 } from "react-native-chart-kit";
+import { convertToISO8601, formatDate, isDateInPastWeek, formatTime, fetchJsonData } from './functions';
+const url = 'http://127.0.0.1:5000/player-stats';
 
 
 const WeeklyScreen = () => {
+
+  function getDayOfWeekWithinPastWeek(dateStr: string): number {
+    const inputDate = moment(dateStr, 'ddd MMM DD HH:mm:ss YYYY');
+    const currentDate = moment();
+  
+    const daysDifference = currentDate.diff(inputDate, 'days');
+  
+    if (daysDifference >= 0 && daysDifference <= 6) {
+      // The date is within the past week, return the day of the week
+      return inputDate.day();
+    } else {
+      // The date is not within the past week
+      return -1;
+    }
+  }
+
+  const [weekTotal, setWeekTotal] = useState({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0});
+  const [weekData, setWeekData] = useState([
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+  ]);
+    
+  // Define an async function to fetch JSON data
+  async function fetchJsonData(url: string): Promise<any> {
+    try {
+        // Fetch data from the provided URL
+        const response = await fetch(url);
+        // Parse the response as JSON
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        // Handle any errors that occur during the fetch
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+  }
+
+  useEffect(() => {
+    // Function to fetch data
+    const fetchData = () => {
+      fetchJsonData(url)
+        .then(data => {
+          var week_total = { shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0}
+          var week_data = [
+            { shotsMade: 0, shotsMissed: 0 },
+            { shotsMade: 0, shotsMissed: 0 },
+            { shotsMade: 0, shotsMissed: 0 },
+            { shotsMade: 0, shotsMissed: 0 },
+            { shotsMade: 0, shotsMissed: 0 },
+            { shotsMade: 0, shotsMissed: 0 },
+            { shotsMade: 0, shotsMissed: 0 },
+          ]
+          for (let i=0;i<data.length;i++) {
+            let index = getDayOfWeekWithinPastWeek(data[i].date);
+            if (index != -1) {
+              week_data[index].shotsMade += data[i].shotsMade;
+              week_data[index].shotsMissed += data[i].shotsMissed
+            }
+          }
+          setWeekData(week_data);
+          for (let i=data.length-1;i>=0;i--) {
+            if (isDateInPastWeek(data[i]['date'])) {
+              week_total.shotsMade += data[i].shotsMade;
+              week_total.shotsTaken += data[i].shotsTaken;
+              week_total.shotsMissed += data[i].shotsMissed;
+              week_total.timeOfSession += data[i].timeOfSession;
+              if (data[i].highestStreak > week_total.highestStreak) {
+                week_total.highestStreak = data[i].highestStreak;
+              }
+            } else {
+              break;
+            }
+          }
+          setWeekTotal(week_total);
+        })
+        .catch(error => console.error('Error in fetching data:', error));
+    };
+  
+    // Initial fetch
+    fetchData();
+
+    // Set up polling
+    const interval = setInterval(fetchData, 10000); // Polling every 10 seconds
+
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+
+  }, []);
 
   const data = {
     labels: ["mon", "tues", "wed", "thurs", "fri", "sat", "sun"],
     legend: ["made", "missed"],
     data: [
-      [40, 60],
-      [50, 50],
-      [30, 70],
-      [25, 75],
-      [60, 40],
-      [80, 20],
-      [60, 40],
+      [weekData[0].shotsMade, weekData[0].shotsMissed],
+      [weekData[1].shotsMade, weekData[1].shotsMissed],
+      [weekData[2].shotsMade, weekData[2].shotsMissed],
+      [weekData[3].shotsMade, weekData[3].shotsMissed],
+      [weekData[4].shotsMade, weekData[4].shotsMissed],
+      [weekData[5].shotsMade, weekData[5].shotsMissed],
+      [weekData[6].shotsMade, weekData[6].shotsMissed],
     ],
     barColors: ["#58B449", "#B53E3E"]
   };

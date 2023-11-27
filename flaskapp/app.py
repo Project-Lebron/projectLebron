@@ -43,6 +43,20 @@ stats_db = cluster['stats']
 
 @app.route("/start", methods=["GET"])
 def result():
+    # for i in range(10):
+    #     stat = {
+    #         "ID": i,
+    #         "shotsTaken": 0,
+    #         "shotsMade":20,
+    #         "shotsMissed":5,
+    #         "highestStreak": 0,
+    #         "streak": 0,
+    #         "date": "Thurs Nov 23 00:00:00 2023",
+    #         "timeOfSession":0,
+    #         "status": "active",
+    #     }
+    #     stats_db.insert_one(stat)
+    
     return jsonify({"Message":"Starting, Function"})
     # missed=0
     # lastMiss=0
