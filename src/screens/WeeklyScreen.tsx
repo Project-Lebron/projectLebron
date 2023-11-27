@@ -11,15 +11,15 @@ const WeeklyScreen = () => {
     labels: ["mon", "tues", "wed", "thurs", "fri", "sat", "sun"],
     legend: ["made", "missed"],
     data: [
-      [60, 60],
-      [30, 30],
-      [30, 30],
-      [30, 30],
-      [30, 30],
-      [30, 30],
-      [30, 30],
+      [40, 60],
+      [50, 50],
+      [30, 70],
+      [25, 75],
+      [60, 40],
+      [80, 20],
+      [60, 40],
     ],
-    barColors: ["#dfe4ea", "#ced6e0"]
+    barColors: ["#58B449", "#B53E3E"]
   };
 
   
@@ -71,26 +71,27 @@ const WeeklyScreen = () => {
         </View>
 
         {/* Daily Charts */}
-        <Text style={styles.dailyCharts}>Daily Charts</Text>
+        <Text style={[styles.dailyCharts, {marginBottom: 15}]}>Daily Charts</Text>
         <View style={styles.barChartContainer}>
           <StackedBarChart
             style={styles.barChart}
             data={data}
-            width={390}
+            width={400}
             height={200}
             hideLegend={true}
             withHorizontalLabels={false}
             chartConfig={{
-              backgroundGradientFrom: "#0D1B2A",
-              backgroundGradientTo: "#0D1B2A",
+              backgroundGradientFrom: "#415A77",
+              backgroundGradientTo: "#415A77",
               decimalPlaces: 2, // optional, defaults to 2dp
               color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
               labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
               style: {
                 borderRadius: 16,
                 justifyContent: 'center',
+                alignItems: 'center',
+                width: 900,
               },
-
             }}
           />
         </View>
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
 
   barChartContainer: {
     marginRight: 0,
+
   },
 
   barChart: {
@@ -132,6 +134,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
+    marginRight: 105,
   },
 
   dateText: {
