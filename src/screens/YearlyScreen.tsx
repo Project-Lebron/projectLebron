@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 
 const YearlyScreen = () => {
+  
   return (
 
     <View style={{flex:1, backgroundColor: '#0D1B2A'}}>
@@ -9,65 +10,8 @@ const YearlyScreen = () => {
       <View style={styles.topContainer}>
         <Text style={styles.dateText}>Nov 19 - 25</Text>
       </View>
-
-
-      <ScrollView style={styles.container}>
-        
-        {/* Weekly Totals */}
-        <Text style={styles.weeklyTotals}>Weekly Totals</Text>
-        <View style={styles.statsContainer}>
-          
-        <View style={styles.columnContainer}>
-              <View style={[styles.labelContainer, {margin: 10 }]}>
-                <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
-                <Text style={[styles.boxText, {fontSize: 40, marginTop: 5}]}>17:19</Text>        
-              </View>
-              <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
-                <View style={[styles.mediumCircles]}></View>      
-              </View>
-              <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
-                <View style={[styles.mediumCircles]}></View>      
-              </View>
-            </View>
-            <View style={styles.columnContainer}>
-              <View style={[styles.labelContainer, {margin: 10 }]}>
-                <Text style={[styles.boxText, { color: '#1B263B'}]}>Total</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>192</Text>        
-              </View>
-              <View style={[styles.labelContainer, {margin: 10}]}>
-                <Text style={[styles.boxText, { color: '#1B263B'}]}>Made</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>61</Text>      
-              </View>
-              <View style={[styles.labelContainer, {margin: 10}]}>    
-                <Text style={[styles.boxText, { color: '#1B263B'}]}>Missed</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>131</Text>                  
-              </View>
-              <View style={[styles.labelContainer, {margin: 10}]}>    
-                <Text style={[styles.boxText, { color: '#1B263B'}]}>Best Streak</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>8</Text>                  
-              </View>
-            </View>
-        </View>
-
-        {/* Daily Charts */}
-        <Text style={styles.dailyCharts}>Daily Charts</Text>
-        <View style={styles.chartsContainer}>
-        </View>
-
-
-        {/* Daily Charts */}
-        <Text style={styles.dailyCharts}>Daily Charts</Text>
-        <View style={styles.chartsContainer}>
-        </View>
-
-
-        {/* Daily Charts */}
-        <Text style={styles.dailyCharts}>Daily Charts</Text>
-        <View style={[styles.chartsContainer, {marginBottom: 100}]}>
-        </View>
-
     
-      </ScrollView>
+
     </View>
   )
 }

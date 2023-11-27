@@ -1,8 +1,28 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import {
+  StackedBarChart
+} from "react-native-chart-kit";
+
 
 const WeeklyScreen = () => {
+
+  const data = {
+    labels: ["mon", "tues", "wed", "thurs", "fri", "sat", "sun"],
+    legend: ["made", "missed"],
+    data: [
+      [60, 60],
+      [30, 30],
+      [30, 30],
+      [30, 30],
+      [30, 30],
+      [30, 30],
+      [30, 30],
+    ],
+    barColors: ["#dfe4ea", "#ced6e0"]
+  };
+
+  
   return (
 
     <View style={{flex:1, backgroundColor: '#0D1B2A'}}>
@@ -52,7 +72,27 @@ const WeeklyScreen = () => {
 
         {/* Daily Charts */}
         <Text style={styles.dailyCharts}>Daily Charts</Text>
-        <View style={styles.chartsContainer}>
+        <View style={styles.barChartContainer}>
+          <StackedBarChart
+            style={styles.barChart}
+            data={data}
+            width={390}
+            height={200}
+            hideLegend={true}
+            withHorizontalLabels={false}
+            chartConfig={{
+              backgroundGradientFrom: "#0D1B2A",
+              backgroundGradientTo: "#0D1B2A",
+              decimalPlaces: 2, // optional, defaults to 2dp
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              style: {
+                borderRadius: 16,
+                justifyContent: 'center',
+              },
+
+            }}
+          />
         </View>
 
 
@@ -81,6 +121,17 @@ const styles = StyleSheet.create({
     paddingLeft: 20, // Padding from left
     borderRadius: 40,
     flex: 1,
+  },
+
+  barChartContainer: {
+    marginRight: 0,
+  },
+
+  barChart: {
+    backgroundColor:'#415A77',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
   },
 
   dateText: {
