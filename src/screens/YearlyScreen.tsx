@@ -1,15 +1,85 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
+import {
+  PieChart
+} from "react-native-chart-kit";
 
 const YearlyScreen = () => {
+
+  const data = [
+    {
+      name: "Seoul",
+      population: 21500000,
+      color: "rgba(131, 167, 234, 1)",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+    {
+      name: "Toronto",
+      population: 2800000,
+      color: "#F00",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+    {
+      name: "Beijing",
+      population: 527612,
+      color: "red",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+    {
+      name: "New York",
+      population: 8538000,
+      color: "#ffffff",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    },
+    {
+      name: "Moscow",
+      population: 11920000,
+      color: "rgb(0, 0, 255)",
+      legendFontColor: "#7F7F7F",
+      legendFontSize: 15
+    }
+  ];
   
   return (
 
     <View style={{flex:1, backgroundColor: '#0D1B2A'}}>
       
       <View style={styles.topContainer}>
-        <Text style={styles.dateText}>Nov 19 - 25</Text>
+        <Text style={styles.dateText}>2023</Text>
       </View>
+
+      <PieChart
+        data={data}
+        width={300}
+        height={300}
+        style={styles.pieChart}
+        hasLegend={false}
+        chartConfig={{
+          backgroundGradientFrom: "#415A77",
+          backgroundGradientTo: "#415A77",
+          decimalPlaces: 2, // optional, defaults to 2dp
+          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+          propsForHorizontalLabels: {
+            fontWeight: 'bold',
+          },
+          style: {
+            borderRadius: 16,
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: 900,
+          },
+        }}
+        accessor={"population"}
+        backgroundColor={"transparent"}
+        paddingLeft={"70"}
+        center={[0, 0]}
+        absolute
+      />
     
 
     </View>
@@ -24,6 +94,10 @@ const styles = StyleSheet.create({
     paddingLeft: 20, // Padding from left
     borderRadius: 40,
     flex: 1,
+  },
+
+  pieChart: {
+    marginLeft: 50,
   },
 
   dateText: {

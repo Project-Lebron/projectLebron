@@ -117,7 +117,7 @@ const MonthlyScreen = () => {
           endDate={new Date("2023-01-31")}
           numDays={30}
           width={400}
-          height={400}
+          height={350}
           style={styles.boxChart}
           horizontal={false}
           tooltipDataAttrs={false} 
@@ -141,12 +141,6 @@ const MonthlyScreen = () => {
             },
           }}
         />
-
-
-        {/* Daily Charts */}
-        <Text style={styles.dailyCharts}>Daily Charts</Text>
-        <View style={[styles.chartsContainer, {marginBottom: 100}]}>
-        </View>
 
     
       </ScrollView>

@@ -3,9 +3,11 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import moment from 'moment';
 import {
-  StackedBarChart
+  StackedBarChart,
+  ProgressChart
 } from "react-native-chart-kit";
 import { convertToISO8601, formatDate, isDateInPastWeek, formatTime, fetchJsonData } from './functions';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 const url = 'http://127.0.0.1:5000/player-stats';
 
 
@@ -119,6 +121,11 @@ const WeeklyScreen = () => {
     barColors: ["#58B449", "#B53E3E"]
   };
 
+  const goalData = {
+    labels: ["taken", "made"], // optional
+    data: [0.4, 0.6]
+  };
+
   
   return (
 
@@ -198,15 +205,32 @@ const WeeklyScreen = () => {
 
 
         {/* Daily Charts */}
-        <Text style={styles.dailyCharts}>Daily Charts</Text>
-        <View style={styles.chartsContainer}>
-        </View>
-
-
-        {/* Daily Charts */}
-        <Text style={styles.dailyCharts}>Daily Charts</Text>
-        <View style={[styles.chartsContainer, {marginBottom: 100}]}>
-        </View>
+        <Text style={styles.dailyCharts}>Daily Goals</Text>
+        <ProgressChart
+          data={goalData}
+          style={styles.progressChart}
+          width={300}
+          height={220}
+          strokeWidth={16}
+          radius={32}
+          chartConfig={{
+            backgroundGradientFrom: "#415A77",
+            backgroundGradientTo: "#415A77",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            propsForHorizontalLabels: {
+              fontWeight: 'bold',
+            },
+            style: {
+              borderRadius: 16,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: 900,
+            },
+          }}
+          hideLegend={false}
+        />
 
     
       </ScrollView>
@@ -226,7 +250,6 @@ const styles = StyleSheet.create({
 
   barChartContainer: {
     marginRight: 0,
-
   },
 
   barChart: {
@@ -235,6 +258,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     marginRight: 105,
+  },
+  
+  progressChart: {
+    marginBottom: 100,
   },
 
   dateText: {
