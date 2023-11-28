@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HistoryScreen = () => {
   return (
@@ -22,6 +23,9 @@ const HistoryScreen = () => {
           <Text style={styles.timeText}>30:45</Text>
           <Text style={styles.streakTitleText}>Best Streak</Text>
           <Text style={styles.streakText}>6</Text>
+          <View style={styles.flame}>
+            <Icon name="fire" size={28} color="orange"/>
+          </View>
         </View>
 
         <View style={styles.statsContainer}>
@@ -31,6 +35,11 @@ const HistoryScreen = () => {
           <Text style={styles.dateText}>Oct 27</Text>
           <Text style={styles.timeTitleText}>Time</Text>
           <Text style={styles.timeText}>55:38</Text>
+          <Text style={styles.streakTitleText}>Best Streak</Text>
+          <Text style={styles.streakText}>11</Text>
+          <View style={styles.flame}>
+            <Icon name="fire" size={28} color="orange"/>
+          </View>
         </View>
 
         <View style={styles.statsContainer}>
@@ -40,6 +49,11 @@ const HistoryScreen = () => {
           <Text style={styles.dateText}>Oct 25</Text>
           <Text style={styles.timeTitleText}>Time</Text>
           <Text style={styles.timeText}>44:21</Text>
+          <Text style={styles.streakTitleText}>Best Streak</Text>
+          <Text style={styles.streakText}>4</Text>
+          <View style={styles.flame}>
+            <Icon name="fire" size={28} color="orange"/>
+          </View>
         </View>
         
         <View style={styles.marginBottom}>
@@ -49,6 +63,11 @@ const HistoryScreen = () => {
           <Text style={styles.dateText}>Oct 23</Text>
           <Text style={styles.timeTitleText}>Time</Text>
           <Text style={styles.timeText}>37:04</Text>
+          <Text style={styles.streakTitleText}>Best Streak</Text>
+          <Text style={styles.streakText}>9</Text>
+          <View style={styles.flame}>
+            <Icon name="fire" size={28} color="orange"/>
+          </View>
         </View>
     
       </ScrollView>
@@ -130,7 +149,7 @@ const styles = StyleSheet.create({
     color:'#0D1B2A',
     fontSize: 15,
     fontWeight: 'bold',
-    marginTop: -85,
+    marginTop: -80,
     marginLeft: 175,
   },
   timeText: {
@@ -152,7 +171,12 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginTop: 0,
-
+    marginLeft: 165,
+  },
+  flame: {
+    flexDirection: 'row',
+    marginLeft: 205,
+    marginTop: -30,
   },
 })
 
