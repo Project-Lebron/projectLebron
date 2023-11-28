@@ -20,7 +20,7 @@ const TopNav = () => {
             tabBarIndicatorStyle: { backgroundColor: '#919EAA', height: '100%', borderBottomStartRadius: 20, borderTopStartRadius: 20, borderTopEndRadius: 20, borderBottomEndRadius: 20},
 
         }}>
-      <Tab.Screen name="History" component={HistoryScreen} options={{ tabBarLabel: "Recent"}}></Tab.Screen>
+      <Tab.Screen name="History" component={HistoryScreen} options={{ tabBarLabel: "History"}}></Tab.Screen>
       <Tab.Screen name="Week" component={WeeklyScreen}></Tab.Screen>
       <Tab.Screen name="Month" component={MonthlyScreen}></Tab.Screen>
       <Tab.Screen name="Year" component={YearlyScreen}></Tab.Screen>
