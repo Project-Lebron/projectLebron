@@ -9,14 +9,14 @@ const YearlyScreen = () => {
   const data = [
     {
       name: "made",
-      percentage: 33,
+      percentage: (yearlydate.shotsmade/yearlydate.shotstaken) * 100,
       color: "rgba(131, 167, 234, 1)",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     },
     {
       name: "missed",
-      percentage: 66,
+      percentage: 100 - ((yearlydate.shotsmade/yearlydate.shotstaken) * 100),
       color: "#F00",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
