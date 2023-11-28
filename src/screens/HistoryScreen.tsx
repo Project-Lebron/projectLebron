@@ -7,24 +7,38 @@ const HistoryScreen = () => {
     <View style={{flex:1, backgroundColor: '#0D1B2A'}}>
       
       <View style={styles.topContainer}>
-        <Text style={styles.dateText}>My Progress</Text>
+        <Text style={styles.titleText}>My Progress</Text>
       </View>
 
       <ScrollView style={styles.container}>
         
         {/* History */}
         <View style={styles.statsContainer}>
-          <View style={[styles.mediumCircles]}>
+          <View style={[styles.cirlces]}>
+            <Text style={styles.percentText}>33%</Text>
           </View>
+          <Text style={styles.dateText}>Oct 28</Text>
         </View>
 
         <View style={styles.statsContainer}>
+          <View style={[styles.cirlces]}>
+            <Text style={styles.percentText}>30%</Text>
+          </View>
+          <Text style={styles.dateText}>Oct 27</Text>
         </View>
 
         <View style={styles.statsContainer}>
+          <View style={[styles.cirlces]}>
+            <Text style={styles.percentText}>28%</Text>
+          </View>
+          <Text style={styles.dateText}>Oct 25</Text>
         </View>
         
         <View style={styles.marginBottom}>
+          <View style={[styles.cirlces]}>
+            <Text style={styles.percentText}>34%</Text>
+          </View>
+          <Text style={styles.dateText}>Oct 23</Text>
         </View>
     
       </ScrollView>
@@ -43,7 +57,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  dateText: {
+  titleText: {
     color:'white',
     fontSize: 28,
     marginTop: 20,
@@ -82,13 +96,25 @@ const styles = StyleSheet.create({
     marginHorizontal: -10,
     flex: 0,
   },
-  mediumCircles: {
-    width: 80,
-    height: 80,
+  cirlces: {
+    width: 120,
+    height: 120,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 150,
     backgroundColor: '#415A77',
+  },
+  dateText: {
+    color:'#0D1B2A',
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginTop: -75,
+    marginLeft: 260,
+  },
+  percentText: {
+    color: 'white',
+    fontSize: 36,
+    fontWeight: 'bold',
   },
 })
 
