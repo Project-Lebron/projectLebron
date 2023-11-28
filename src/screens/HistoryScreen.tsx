@@ -18,6 +18,10 @@ const HistoryScreen = () => {
             <Text style={styles.percentText}>33%</Text>
           </View>
           <Text style={styles.dateText}>Oct 28</Text>
+          <Text style={styles.timeTitleText}>Time</Text>
+          <Text style={styles.timeText}>30:45</Text>
+          <Text style={styles.streakTitleText}>Best Streak</Text>
+          <Text style={styles.streakText}>6</Text>
         </View>
 
         <View style={styles.statsContainer}>
@@ -25,6 +29,8 @@ const HistoryScreen = () => {
             <Text style={styles.percentText}>30%</Text>
           </View>
           <Text style={styles.dateText}>Oct 27</Text>
+          <Text style={styles.timeTitleText}>Time</Text>
+          <Text style={styles.timeText}>55:38</Text>
         </View>
 
         <View style={styles.statsContainer}>
@@ -32,6 +38,8 @@ const HistoryScreen = () => {
             <Text style={styles.percentText}>28%</Text>
           </View>
           <Text style={styles.dateText}>Oct 25</Text>
+          <Text style={styles.timeTitleText}>Time</Text>
+          <Text style={styles.timeText}>44:21</Text>
         </View>
         
         <View style={styles.marginBottom}>
@@ -39,6 +47,8 @@ const HistoryScreen = () => {
             <Text style={styles.percentText}>34%</Text>
           </View>
           <Text style={styles.dateText}>Oct 23</Text>
+          <Text style={styles.timeTitleText}>Time</Text>
+          <Text style={styles.timeText}>37:04</Text>
         </View>
     
       </ScrollView>
@@ -115,6 +125,34 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 36,
     fontWeight: 'bold',
+  },
+  timeTitleText: {
+    color:'#0D1B2A',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: -85,
+    marginLeft: 175,
+  },
+  timeText: {
+    color:'#0D1B2A',
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginTop: 0,
+    marginLeft: 150,
+  },
+  streakTitleText: {
+    color:'#0D1B2A',
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginLeft: 150,
+  },
+  streakText: {
+    color:'#0D1B2A',
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginTop: 0,
+
   },
 })
 
