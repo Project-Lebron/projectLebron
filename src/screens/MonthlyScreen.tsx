@@ -68,10 +68,6 @@ function getDayNumber(dateStr: string): number {
   return day;
 }
 
-
-
-
-
   function isCurrentMonth(dateStr: string): boolean {
     const datePattern = /^.* (\w{3}) (\d{2}) (\d{2}:\d{2}:\d{2}) (\d{4})$/;
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

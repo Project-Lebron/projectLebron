@@ -1,10 +1,12 @@
+//Tues Nov 14 11:53:58 2023
+const monthNames: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 export function convertToISO8601(dateStr: string): string {
     const parts = dateStr.match(/(\w+) (\w+) (\d+) (\d+):(\d+):(\d+) (\d+)/);
     if (!parts) {
         throw new Error('Invalid date format');
     }
 
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const monthIndex = monthNames.indexOf(parts[2]);
     const month = monthIndex >= 0 ? (monthIndex + 1).toString().padStart(2, '0') : '00';
 
@@ -20,29 +22,44 @@ export function formatDate(inputDateStr: string): string {
 
     // Extract the components of the date
     const year: string = parts[parts.length - 1]; // Year is the last part of the string
-    const monthIndex: number = monthNames.indexOf(parts[1]);
-    const day: string = parts[2];
+    var month: string = (monthNames.indexOf(parts[1])+1).toString();
+    var day: string = parts[2];
 
-    // Zero-pad the day and month if necessary
-    const formattedDay: string = day.padStart(2, '0');
-    const formattedMonth: string = (monthIndex + 1).toString().padStart(2, '0'); // +1 because months are 0-indexed
+    if (day.length === 1) {
+        day = '0' + day;
+    } 
+    if (month.length === 1) {
+        month = '0' + month;
+    }
 
     // Return the formatted date in "DD.MM.YYYY" format
-    return `${formattedDay}.${formattedMonth}.${year}`;
+    return `${day}.${month}.${year}`;
 }
 
-export function isDateInPastWeek(dateStr: string): boolean {
-    try {
-        const isoDateStr = convertToISO8601(dateStr);
-        const date = new Date(isoDateStr);
+export function isInPastWeek(dateStr: string): boolean {
+    // Assuming dateStr format is "Sat Nov 25 16:53:58 2023"
 
-        const currentDate = new Date();
-        const oneWeekAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-        return date >= oneWeekAgo && date <= currentDate;
-    } catch (e) {
-        console.error(e);
-        return false;
-    }
+    const parts = dateStr.split(' ');
+    const year = parseInt(parts[4]);
+    const month = monthNames.indexOf(parts[1]);
+    const day = parseInt(parts[2]);
+
+    // Get current date values using Date object
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth(); // Month is 0-indexed
+    const currentDay = currentDate.getDate();
+
+    // Calculate differences
+    const yearDiff = currentYear - year;
+    const monthDiff = currentMonth - month;
+    const dayDiff = currentDay - day;
+
+    // Calculate total difference in days (very approximate, ignores leap years and varying month lengths)
+    const totalDaysDiff = yearDiff * 365 + monthDiff * 30 + dayDiff;
+
+    // Check if the difference is less than or equal to 7
+    return totalDaysDiff <= 7;
 }
 
 export function formatTime(seconds: number): string {
