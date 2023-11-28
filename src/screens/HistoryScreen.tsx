@@ -14,11 +14,16 @@ const HistoryScreen = () => {
         
         {/* History */}
         <View style={styles.statsContainer}>
+          <View style={[styles.mediumCircles]}>
+          </View>
         </View>
+
         <View style={styles.statsContainer}>
         </View>
+
         <View style={styles.statsContainer}>
         </View>
+        
         <View style={styles.marginBottom}>
         </View>
     
@@ -76,6 +81,14 @@ const styles = StyleSheet.create({
     marginBottom: 110,
     marginHorizontal: -10,
     flex: 0,
+  },
+  mediumCircles: {
+    width: 80,
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 150,
+    backgroundColor: '#415A77',
   },
 })
 
