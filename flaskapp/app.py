@@ -15,8 +15,8 @@ echoPin = 24
 uri = "mongodb+srv://lebron:Nh5JGdICwa4hib6S@project-lebron-database.ppmmons.mongodb.net/?retryWrites=true&w=majority"
 
 # INITIALIZATIONS
-# distance_sensor = DistanceSensor(echoPin, trigPin)
-# vibration_sensor = MotionSensor(16,threshold=0.01) 
+distance_sensor = DistanceSensor(echoPin, trigPin)
+vibration_sensor = MotionSensor(16,threshold=0.01) 
 app = Flask(__name__)
 
 # Avg distance (m)
@@ -43,139 +43,74 @@ stats_db = cluster['stats']
 
 @app.route("/start", methods=["GET"])
 def result():
-    stat1 = {
-        "ID": 2,
-        "shotsTaken": 20,
-        "shotsMade":5,
-        "shotsMissed":15,
-        "highestStreak": 2,
-        "streak": 3,
-        "date": "Sun Nov 26 11:53:58 2023",
-        "timeOfSession": 50,
-        "status": "complete",
+    missed=0
+    lastMiss=0
+
+    latestStat = stats_db.find_one(sort=[('ID', pymongo.DESCENDING)])
+
+    if latestStat:
+        latestId = latestStat['ID']
+    else:
+        latestId = 0
+    
+    # Initialize and push
+    start_time = time.time()
+    stat = {
+        "ID": latestId + 1,
+        "shotsTaken": 0,
+        "shotsMade":0,
+        "shotsMissed":0,
+        "highestStreak": 0,
+        "streak": 0,
+        "date": time.ctime(),
+        "timeOfSession":0,
+        "status": "active",
     }
-    stats_db.insert_one(stat1)
-    # stat2 = {
-    #     "ID": 2,
-    #     "shotsTaken": 400,
-    #     "shotsMade": 200,
-    #     "shotsMissed": 200,
-    #     "highestStreak": 18,
-    #     "streak": 2,
-    #     "date": "Fri Nov 24 16:53:58 2023",
-    #     "timeOfSession": 400,
-    #     "status": "complete",
-    # }
-    # stat3 = {
-    #     "ID": 3,
-    #     "shotsTaken": 100,
-    #     "shotsMade": 50,
-    #     "shotsMissed": 50,
-    #     "highestStreak": 10,
-    #     "streak": 2,
-    #     "date": "Mon Nov 20 16:53:58 2023",
-    #     "timeOfSession": 500,
-    #     "status": "complete",
-    # }
-    # stat4 = {
-    #     "ID": 4,
-    #     "shotsTaken": 500,
-    #     "shotsMade": 400,
-    #     "shotsMissed": 100,
-    #     "highestStreak": 100,
-    #     "streak": 2,
-    #     "date": "Wed Nov 22 16:53:58 2023",
-    #     "timeOfSession": 600,
-    #     "status": "complete",
-    # }
-    # stat5 = {
-    #     "ID": 5,
-    #     "shotsTaken": 2,
-    #     "shotsMade": 1,
-    #     "shotsMissed": 1,
-    #     "highestStreak": 1,
-    #     "streak": 1,
-    #     "date": "Thurs Nov 23 16:53:58 2023",
-    #     "timeOfSession": 500,
-    #     "status": "active",
-    # }
 
-    #stats_db.insert_one(stat1)
-    # stats_db.insert_one(stat2)
-    # stats_db.insert_one(stat3)
-    # stats_db.insert_one(stat4)
-    # stats_db.insert_one(stat5)
-
-    
-    return jsonify({"Message":"Starting, Function"})
-    # missed=0
-    # lastMiss=0
-
-    # latestStat = stats_db.find_one(sort=[('ID', pymongo.DESCENDING)])
-
-    # if latestStat:
-    #     latestId = latestStat['ID']
-    # else:
-    #     latestId = 0
-    
-    # # Initialize and push
-    # start_time = time.time()
-    # stat = {
-    #     "ID": latestId + 1,
-    #     "shotsTaken": 0,
-    #     "shotsMade":0,
-    #     "shotsMissed":0,
-    #     "highestStreak": 0,
-    #     "streak": 0,
-    #     "date": time.ctime(),
-    #     "timeOfSession":0,
-    #     "status": "active",
-    # }
-
-    # filter = { 'ID': stat['ID'] }
+    filter = { 'ID': stat['ID'] }
     
     
-    # # push to database
-    # stats_db.insert_one(stat)
+    # push to database
+    stats_db.insert_one(stat)
 
-    # # Run sensors / use code from other file
-    # last_distance_time=-1
-    # last_vibration_time=-1
+    # Run sensors / use code from other file
+    last_distance_time=-1
+    last_vibration_time=-1
     
-    # while not COMPLETE:
-    #     if last_distance_time<0 or (time.time()-last_distance_time)>SLEEP:
-    #         last_distance_time=-1
-    #         if distance_sensor.distance < DISTANCE/2:
-    #             last_distance_time=time.time()
-    #             stat['shotsMade'] += 1
-    #             stat['streak'] += 1
-    #             print('Successful shot taken')
-    #     if last_vibration_time<0 or (time.time()-last_vibration_time)>SLEEP:
-    #         last_vibration_time=-1
-    #         if vibration_sensor.motion_detected:
-    #             last_vibration_time=time.time()
-    #             stat['shotsTaken'] += 1
-    #             print('Unsuccessful shot taken')
+    while not COMPLETE:
+        if last_distance_time<0 or (time.time()-last_distance_time)>SLEEP:
+            last_distance_time=-1
+            if distance_sensor.distance < DISTANCE/2:
+                last_distance_time=time.time()
+                stat['shotsMade'] += 1
+                stat['streak'] += 1
+                print('Successful shot taken')
+        if last_vibration_time<0 or (time.time()-last_vibration_time)>SLEEP:
+            last_vibration_time=-1
+            if vibration_sensor.motion_detected:
+                last_vibration_time=time.time()
+                stat['shotsTaken'] += 1
+                print('Unsuccessful shot taken')
         
-    #     stat['timeOfSession'] = time.time()-start_time
-    #     stat['shotsMissed'] = stat['shotsTaken'] - stat['shotsMade']
-    #     newvalues = { "$set": { "shotsTaken": stat['shotsTaken'],
-    #                             "shotsMade": stat['shotsMade'],
-    #                             "shotsMissed": stat['shotsMissed'],
-    #                             "streak": stat['streak'],
-    #                             "highestStreak": stat['highestStreak'],
-    #                             "timeOfSession": stat['timeOfSession']} }
-    #     missed = stat['shotsMissed']
-    #     if stat['highestStreak'] < stat['streak']:
-    #         stat['highestStreak'] = stat['streak']
-    #     if missed > lastMiss:
-    #         stat['streak'] = 0
-    #         lastMiss = missed
+        stat['timeOfSession'] = time.time()-start_time
+        stat['shotsMissed'] = stat['shotsTaken'] - stat['shotsMade']
+        newvalues = { "$set": { "shotsTaken": stat['shotsTaken'],
+                                "shotsMade": stat['shotsMade'],
+                                "shotsMissed": stat['shotsMissed'],
+                                "streak": stat['streak'],
+                                "highestStreak": stat['highestStreak'],
+                                "timeOfSession": stat['timeOfSession']} }
+        missed = stat['shotsMissed']
+        if stat['highestStreak'] < stat['streak']:
+            stat['highestStreak'] = stat['streak']
+        if missed > lastMiss:
+            stat['streak'] = 0
+            lastMiss = missed
             
-    #     stats_db.update_one(filter, newvalues)
-    #     sleep(0.1)
+        stats_db.update_one(filter, newvalues)
+        sleep(0.1)
 
-    # COMPLETE=False
+    COMPLETE=False
 
 
 
