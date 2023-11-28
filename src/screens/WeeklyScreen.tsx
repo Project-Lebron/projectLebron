@@ -13,6 +13,18 @@ const url = 'http://127.0.0.1:5000/player-stats';
 
 const WeeklyScreen = () => {
 
+
+  const [weekTotal, setWeekTotal] = useState({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0});
+  const [weekData, setWeekData] = useState([
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+    { shotsMade: 0, shotsMissed: 0 },
+  ]);
+
   function getCurrentWeekRange(): string {
     // Get the current date
     const currentDate = new Date();
@@ -53,17 +65,6 @@ const WeeklyScreen = () => {
       return -1;
     }
   }
-
-  const [weekTotal, setWeekTotal] = useState({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0});
-  const [weekData, setWeekData] = useState([
-    { shotsMade: 0, shotsMissed: 0 },
-    { shotsMade: 0, shotsMissed: 0 },
-    { shotsMade: 0, shotsMissed: 0 },
-    { shotsMade: 0, shotsMissed: 0 },
-    { shotsMade: 0, shotsMissed: 0 },
-    { shotsMade: 0, shotsMissed: 0 },
-    { shotsMade: 0, shotsMissed: 0 },
-  ]);
     
   // Define an async function to fetch JSON data
   async function fetchJsonData(url: string): Promise<any> {
@@ -97,8 +98,6 @@ const WeeklyScreen = () => {
           ]
           for (let i=0;i<data.length;i++) {
             let index = getDayOfWeekWithinPastWeek(data[i].date);
-            console.log("date: " + data[i].date);
-            console.log("index: " + index);
             if (index != -1) {
               week_data[index].shotsMade += data[i].shotsMade;
               week_data[index].shotsMissed += data[i].shotsMissed;
