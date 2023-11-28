@@ -1,44 +1,171 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { fetchJsonData, convertToISO8601, formatTime } from './functions';
 import {
   StackedBarChart,
   ContributionGraph
 } from "react-native-chart-kit";
+const url = 'http://127.0.0.1:5000/player-stats';
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const MonthlyScreen = () => {
+  let month_totals = { shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0};
+
+  let week_totals: any[] =  [];
+  for (let i=0;i<4;i++) {
+    week_totals.push({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0});
+  }
+
+  let commits_data: any[] = [];
+  for (let i=0;i<30;i++) {
+    commits_data.push({ date: "-1", count: 0 });
+  }
+
+  const [weekTotals, setWeekTotals] = useState(week_totals);
+  const [monthData, setMonthData] = useState({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0});
+  const [commitsData, setCommitsData] = useState(commits_data);
+
+  function categorizeDateByWeeks(dateStr: string): number {
+    // Assuming dateStr format is "Sat Nov 25 16:53:58 2023"
+
+    const parts = dateStr.split(' ');
+    const year = parseInt(parts[4]);
+    const month = monthNames.indexOf(parts[1]);
+    const day = parseInt(parts[2]);
+
+    // Get current date values using Date object
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth(); // Month is 0-indexed
+    const currentDay = currentDate.getDate();
+
+    // Calculate differences
+    const yearDiff = currentYear - year;
+    const monthDiff = currentMonth - month;
+    const dayDiff = currentDay - day;
+
+    // Calculate total difference in days (very approximate, ignores leap years and varying month lengths)
+    const totalDaysDiff = yearDiff * 365 + monthDiff * 30 + dayDiff;
+
+    if (totalDaysDiff < 7) {
+        return 0; // within a week
+    } else if (totalDaysDiff < 14) {
+        return 1; // within two weeks
+    } else if (totalDaysDiff < 21) {
+        return 2; // within three weeks
+    } else {
+        return 3; // within four weeks
+    } 
+}
+
+function getDayNumber(dateStr: string): number {
+  // Assuming dateStr format is "Sat Nov 25 16:53:58 2023"
+  
+  const parts = dateStr.split(' ');
+  const day = parseInt(parts[2]);
+
+  return day;
+}
+
+
+
+
+
+  function isCurrentMonth(dateStr: string): boolean {
+    const datePattern = /^.* (\w{3}) (\d{2}) (\d{2}:\d{2}:\d{2}) (\d{4})$/;
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const match = dateStr.match(datePattern);
+    if (!match) {
+        return false; // Invalid format
+    }
+
+    const monthStr = match[1];
+    const year = parseInt(match[4]);
+
+    const monthIndex = monthNames.indexOf(monthStr);
+    if (monthIndex === -1) {
+        return false; // Invalid month
+    }
+
+    const currentDate = new Date();
+    return year === currentDate.getFullYear() && monthIndex === currentDate.getMonth();
+}
+
+  useEffect(() => {
+    // Function to fetch data
+    const fetchData = () => {
+      fetchJsonData(url)
+        .then(data => {
+          let month_totals = { shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0};
+
+          let week_totals: any[] =  [];
+          for (let i=0;i<4;i++) {
+            week_totals.push({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0});
+          }
+        
+          let commits_data: any[] = [];
+          for (let i=0;i<30;i++) {
+            commits_data.push({ date: "-1", count: 0 });
+          }
+          for (let i=0;i<data.length;i++) {
+            const currentDate = new Date(new Date().toISOString().split('T')[0]);
+          
+            if (isCurrentMonth(data[i].date)) {
+              commits_data[getDayNumber(data[i].date)-1].date = convertToISO8601(data[i].date);
+              commits_data[getDayNumber(data[i].date)-1].count += 1;
+              let index = categorizeDateByWeeks(data[i].date);
+              try {
+                week_totals[index].shotsMade += data[i].shotsMade;
+                week_totals[index].shotsMissed += data[i].shotsMade;
+              } catch (error) {
+                console.log(error);
+              }
+              month_totals.shotsMade += data[i].shotsMade;
+              month_totals.shotsMissed += data[i].shotsMissed;
+              month_totals.shotsTaken += data[i].shotsTaken;
+              month_totals.timeOfSession += data[i].timeOfSession;
+              if (month_totals.highestStreak < data[i].highestStreak) {
+                month_totals.highestStreak = data[i].highestStreak;
+              }
+            }
+          }
+          setMonthData(month_totals);
+          setWeekTotals(week_totals);
+          setCommitsData(commits_data);
+        })
+        .catch(error => console.error('Error in fetching data:', error));
+    };
+  
+    // Initial fetch
+    fetchData();
+
+    // Set up polling
+    const interval = setInterval(fetchData, 10000); // Polling every 10 seconds
+
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+
+  }, []);
 
   const data = {
-    labels: ["week 1", "week 2", "week 3", "week 4"],
+    labels: ["week 1    ", "week 2   ", "week 3  ", "week 4"],
     legend: ["made", "missed"],
     data: [
-      [40, 60],
-      [50, 50],
-      [30, 70],
-      [25, 75],
+      [weekTotals[3].shotsMade, weekTotals[3].shotsMissed],
+      [weekTotals[2].shotsMade, weekTotals[2].shotsMissed],
+      [weekTotals[1].shotsMade, weekTotals[1].shotsMissed],
+      [weekTotals[0].shotsMade, weekTotals[0].shotsMissed],
     ],
     barColors: ["#58B449", "#B53E3E"]
   };
-
-  const commitsData = [
-    { date: "2023-01-01", count: 1 },
-    { date: "2017-01-02", count: 2 },
-    { date: "2017-01-04", count: 3 },
-    { date: "2017-01-05", count: 4 },
-    { date: "2017-01-06", count: 5 },
-    { date: "2017-01-30", count: 2 },
-    { date: "2017-01-31", count: 3 },
-    { date: "2017-03-01", count: 2 },
-    { date: "2017-04-02", count: 4 },
-    { date: "2017-03-05", count: 2 },
-    { date: "2017-02-30", count: 4 }
-  ];
 
   return (
 
     <View style={{flex:1, backgroundColor: '#0D1B2A'}}>
       
       <View style={styles.topContainer}>
-        <Text style={styles.dateText}>November</Text>
+        <Text style={styles.dateText}>Monthly</Text>
       </View>
 
 
@@ -51,31 +178,35 @@ const MonthlyScreen = () => {
         <View style={styles.columnContainer}>
               <View style={[styles.labelContainer, {margin: 10 }]}>
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Time</Text>      
-                <Text style={[styles.boxText, {fontSize: 40, marginTop: 5}]}>17:19</Text>        
+                <Text style={[styles.boxText, {fontSize: 40, marginTop: 5}]}>{formatTime(monthData.timeOfSession)}</Text>        
               </View>
               <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
-                <View style={[styles.mediumCircles]}></View>      
+                <View style={[styles.mediumCircles]}>
+                <Text style={[styles.boxText, { fontSize: 20, marginTop: 5, color: 'white'}]}>{monthData.shotsTaken != 0 ? (Math.round((monthData.shotsMade/monthData.shotsTaken)*100)).toString() + "%" : "0%"}</Text>
+                </View>      
               </View>
               <View style={[styles.labelContainer, {margin: 10, alignItems: 'flex-end'}]}>
-                <View style={[styles.mediumCircles]}></View>      
+                <View style={[styles.mediumCircles]}>
+                <Text style={[styles.boxText, { fontSize: 20, marginTop: 5, color: 'white'}]}>{monthData.shotsMade} / {monthData.shotsTaken}</Text>
+                </View>      
               </View>
             </View>
             <View style={styles.columnContainer}>
               <View style={[styles.labelContainer, {margin: 10 }]}>
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Total</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>192</Text>        
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{monthData.shotsTaken}</Text>        
               </View>
               <View style={[styles.labelContainer, {margin: 10}]}>
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Made</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>61</Text>      
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{monthData.shotsMade}</Text>      
               </View>
               <View style={[styles.labelContainer, {margin: 10}]}>    
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Missed</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>131</Text>                  
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{monthData.shotsMissed}</Text>                  
               </View>
               <View style={[styles.labelContainer, {margin: 10}]}>    
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Best Streak</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>8</Text>                  
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{monthData.highestStreak}</Text>                  
               </View>
             </View>
         </View>
@@ -114,7 +245,7 @@ const MonthlyScreen = () => {
         <Text style={[styles.dailyCharts, {marginBottom: 15}]}>Activity</Text>
         <ContributionGraph
           values={commitsData}
-          endDate={new Date("2023-01-31")}
+          endDate={new Date(new Date().toISOString().split('T')[0])}
           numDays={30}
           width={400}
           height={350}
