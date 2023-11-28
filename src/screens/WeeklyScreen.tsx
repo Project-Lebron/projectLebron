@@ -8,6 +8,7 @@ import {
 } from "react-native-chart-kit";
 import { convertToISO8601, formatDate, isDateInPastWeek, formatTime, fetchJsonData } from './functions';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Icon from 'react-native-vector-icons/FontAwesome';
 const url = 'http://127.0.0.1:5000/player-stats';
 
 
@@ -197,7 +198,10 @@ const WeeklyScreen = () => {
               </View>
               <View style={[styles.labelContainer, {margin: 10}]}>    
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Best Streak</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{weekTotal.highestStreak}</Text>                  
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5, marginLeft: -35 }]}>{weekTotal.highestStreak}</Text> 
+                <View style={styles.flame}>
+                  <Icon name="fire" size={28} color="orange"/>
+                </View>                 
               </View>
             </View>
         </View>
@@ -443,6 +447,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     marginTop: 30,
     marginBottom: 30,
+  },
+  flame: {
+    flexDirection: 'row',
+    marginLeft: 40,
+    marginTop: -30,
   },
 })
 
