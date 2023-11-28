@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
 
   bigCircleTxt: {
     color:'#415A77',
-    fontFamily: 'Roboto',
     fontSize: 100,
     fontWeight: "900",
   },
@@ -107,7 +106,6 @@ const styles = StyleSheet.create({
 
   tagsText: {
     color:'#415A77',
-    fontFamily: 'Roboto',
     marginHorizontal: 50,
     fontSize: 25,
     fontWeight: "900",
@@ -133,7 +131,6 @@ const styles = StyleSheet.create({
   },
   smallCircleTxt: {
     color:'#415A77',
-    fontFamily: 'Roboto',
     fontSize: 70,
     fontWeight: "900",
   },
@@ -148,7 +145,6 @@ const styles = StyleSheet.create({
   },
   startButtonText: {
     color: '#DCDCDC',
-    fontFamily: 'Roboto',
     fontSize: 30,
     fontWeight: '800',
     marginVertical: 15,
