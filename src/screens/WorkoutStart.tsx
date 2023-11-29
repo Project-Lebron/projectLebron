@@ -14,7 +14,9 @@ const WorkoutStart = ({ navigation }: {navigation: any}) => { //type check fix l
         fetchJsonData(url + "player-stats")
           .then(data => {
             const latestData = data[data.length - 1];
-            setPlayerData(latestData);
+            if (latestData.status === "active") {
+              setPlayerData(latestData);
+            }
           })
           .catch(error => console.error('Error in fetching data:', error));
       };
@@ -66,7 +68,7 @@ const WorkoutStart = ({ navigation }: {navigation: any}) => { //type check fix l
           style={styles.startButton} 
           onPress={() => {
             console.log('Pressed!')
-            const request = new Request("http://127.0.0.1:5000/end");
+            const request = new Request(url + "end");
 
             fetch(request)
               .then((response) => {

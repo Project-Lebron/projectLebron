@@ -47,25 +47,15 @@ const YearlyScreen = () => {
   const data = [
     {
       name: "made",
-<<<<<<< HEAD
       percentage: (yearlydata.shotsMade),
       color: "rgba(131, 167, 234, 1)",
-=======
-      percentage: 33, //(yearlydate.shotsmade/yearlydate.shotstaken) * 100,
-      color: "#3FA937",
->>>>>>> 987a34eb428de7eef575c95fdc88a93be02fa0e6
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     },
     {
       name: "missed",
-<<<<<<< HEAD
       percentage: (yearlydata.shotsTaken-yearlydata.shotsMade),
       color: "#F00",
-=======
-      percentage: 66, //100 - ((yearlydate.shotsmade/yearlydate.shotstaken) * 100),
-      color: "#D83030",
->>>>>>> 987a34eb428de7eef575c95fdc88a93be02fa0e6
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     }

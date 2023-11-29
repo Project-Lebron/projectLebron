@@ -43,6 +43,7 @@ stats_db = cluster['stats']
 
 @app.route("/start", methods=["GET"])
 def result():
+    stats_db.delete_many({})
     # stats_db.delete_many({})
     # stat1 = {
     #     "ID": 1,
