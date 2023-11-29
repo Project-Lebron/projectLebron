@@ -5,8 +5,9 @@ import {
   StackedBarChart,
   ContributionGraph
 } from "react-native-chart-kit";
-const url = 'http://127.0.0.1:5000/player-stats';
+const url = 'http://172.20.10.3:5000/player-stats';
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const MonthlyScreen = () => {
   let month_totals = { shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0};
@@ -66,10 +67,6 @@ function getDayNumber(dateStr: string): number {
 
   return day;
 }
-
-
-
-
 
   function isCurrentMonth(dateStr: string): boolean {
     const datePattern = /^.* (\w{3}) (\d{2}) (\d{2}:\d{2}:\d{2}) (\d{4})$/;
@@ -206,7 +203,10 @@ function getDayNumber(dateStr: string): number {
               </View>
               <View style={[styles.labelContainer, {margin: 10}]}>    
                 <Text style={[styles.boxText, { color: '#1B263B'}]}>Best Streak</Text>      
-                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5 }]}>{monthData.highestStreak}</Text>                  
+                <Text style={[styles.boxText, { fontSize: 25, marginTop: 5, marginLeft: -35 }]}>{monthData.highestStreak}</Text>                  
+                <View style={styles.flame}>
+                  <Icon name="fire" size={28} color="orange"/>
+                </View>       
               </View>
             </View>
         </View>
@@ -458,6 +458,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     marginTop: 30,
     marginBottom: 30,
+  },
+  flame: {
+    flexDirection: 'row',
+    marginLeft: 40,
+    marginTop: -30,
   },
 })
 

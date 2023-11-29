@@ -1,10 +1,38 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import React from 'react'
+import React, {useEffect,useState} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { fetchJsonData, formatDate, formatTime } from './functions';
+const url = 'http://127.0.0.1:5000/player-stats';
 
+interface Data {
+  ID: number;
+  shotsTaken: number;
+  shotsMade: number;
+  shotsMissed: number;
+  highestStreak: number;
+  streak: number;
+  date: string;
+  timeOfSession: number;
+  status: string;
+}
 const HistoryScreen = () => {
-  return (
+  const [historyData, setHistoryTotals] = useState<Data[]>([]);
 
+  useEffect(() => {
+    const fetchData = () => {
+      fetchJsonData(url) // Ensure this URL is defined somewhere
+        .then(data => {
+          setHistoryTotals(data.reverse()); // Assuming data is an array of Data objects
+        })
+        .catch(error => console.error('Error in fetching data:', error));
+    };
+
+    fetchData();
+    const interval = setInterval(fetchData, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
     <View style={{flex:1, backgroundColor: '#0D1B2A'}}>
       
       <View style={styles.topContainer}>
@@ -12,63 +40,23 @@ const HistoryScreen = () => {
       </View>
 
       <ScrollView style={styles.container}>
-        
-        {/* History */}
-        <View style={styles.statsContainer}>
-          <View style={[styles.cirlces]}>
-            <Text style={styles.percentText}>33%</Text>
+        {historyData.map((item, index) => (
+            <View style={styles.statsContainer}>
+            <View style={[styles.cirlces]}>
+              <Text style={styles.percentText}>{item.shotsTaken != 0 ? (Math.round((item.shotsMade/item.shotsTaken)*100)).toString() + "%" : "0%"}</Text>
+            </View>
+            <Text style={styles.dateText}>{formatDate(item.date)}</Text>
+            <Text style={styles.timeTitleText}>Time</Text>
+            <Text style={styles.timeText}>{formatTime(item.timeOfSession)}</Text>
+            <Text style={styles.streakTitleText}>Best Streak</Text>
+            <Text style={styles.streakText}>{item.highestStreak}</Text>
+            <View style={styles.flame}>
+              <Icon name="fire" size={28} color="orange"/>
+            </View>
           </View>
-          <Text style={styles.dateText}>Oct 28</Text>
-          <Text style={styles.timeTitleText}>Time</Text>
-          <Text style={styles.timeText}>30:45</Text>
-          <Text style={styles.streakTitleText}>Best Streak</Text>
-          <Text style={styles.streakText}>6</Text>
-          <View style={styles.flame}>
-            <Icon name="fire" size={28} color="orange"/>
-          </View>
-        </View>
+        ))}
 
-        <View style={styles.statsContainer}>
-          <View style={[styles.cirlces]}>
-            <Text style={styles.percentText}>30%</Text>
-          </View>
-          <Text style={styles.dateText}>Oct 27</Text>
-          <Text style={styles.timeTitleText}>Time</Text>
-          <Text style={styles.timeText}>55:38</Text>
-          <Text style={styles.streakTitleText}>Best Streak</Text>
-          <Text style={styles.streakText}>11</Text>
-          <View style={styles.flame}>
-            <Icon name="fire" size={28} color="orange"/>
-          </View>
-        </View>
 
-        <View style={styles.statsContainer}>
-          <View style={[styles.cirlces]}>
-            <Text style={styles.percentText}>28%</Text>
-          </View>
-          <Text style={styles.dateText}>Oct 25</Text>
-          <Text style={styles.timeTitleText}>Time</Text>
-          <Text style={styles.timeText}>44:21</Text>
-          <Text style={styles.streakTitleText}>Best Streak</Text>
-          <Text style={styles.streakText}>4</Text>
-          <View style={styles.flame}>
-            <Icon name="fire" size={28} color="orange"/>
-          </View>
-        </View>
-        
-        <View style={styles.marginBottom}>
-          <View style={[styles.cirlces]}>
-            <Text style={styles.percentText}>34%</Text>
-          </View>
-          <Text style={styles.dateText}>Oct 23</Text>
-          <Text style={styles.timeTitleText}>Time</Text>
-          <Text style={styles.timeText}>37:04</Text>
-          <Text style={styles.streakTitleText}>Best Streak</Text>
-          <Text style={styles.streakText}>9</Text>
-          <View style={styles.flame}>
-            <Icon name="fire" size={28} color="orange"/>
-          </View>
-        </View>
     
       </ScrollView>
     </View>
@@ -135,7 +123,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     color:'#0D1B2A',
-    fontSize: 32,
+    fontSize: 20,
     fontWeight: 'bold',
     marginTop: -75,
     marginLeft: 260,
@@ -149,12 +137,12 @@ const styles = StyleSheet.create({
     color:'#0D1B2A',
     fontSize: 15,
     fontWeight: 'bold',
-    marginTop: -80,
+    marginTop: -70,
     marginLeft: 175,
   },
   timeText: {
     color:'#0D1B2A',
-    fontSize: 28,
+    fontSize: 25,
     fontWeight: 'bold',
     marginTop: 0,
     marginLeft: 150,
@@ -168,7 +156,7 @@ const styles = StyleSheet.create({
   },
   streakText: {
     color:'#0D1B2A',
-    fontSize: 28,
+    fontSize: 25,
     fontWeight: 'bold',
     marginTop: 0,
     marginLeft: 165,

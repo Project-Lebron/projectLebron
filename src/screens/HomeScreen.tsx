@@ -38,7 +38,7 @@ const HomeScreen = ({ navigation}: {navigation: any}) => {
         style={styles.startButton} 
         onPress={() => {
           console.log('Pressed!')
-          const request = new Request("http://127.0.0.1:5000/start");
+          const request = new Request("http://172.20.10.3:5000/start");
 
           fetch(request)
             .then((response) => {
@@ -94,7 +94,6 @@ const styles = StyleSheet.create({
 
   bigCircleTxt: {
     color:'#415A77',
-    fontFamily: 'Roboto',
     fontSize: 100,
     fontWeight: "900",
   },
@@ -107,7 +106,6 @@ const styles = StyleSheet.create({
 
   tagsText: {
     color:'#415A77',
-    fontFamily: 'Roboto',
     marginHorizontal: 50,
     fontSize: 25,
     fontWeight: "900",
@@ -133,7 +131,6 @@ const styles = StyleSheet.create({
   },
   smallCircleTxt: {
     color:'#415A77',
-    fontFamily: 'Roboto',
     fontSize: 70,
     fontWeight: "900",
   },
@@ -148,7 +145,6 @@ const styles = StyleSheet.create({
   },
   startButtonText: {
     color: '#DCDCDC',
-    fontFamily: 'Roboto',
     fontSize: 30,
     fontWeight: '800',
     marginVertical: 15,

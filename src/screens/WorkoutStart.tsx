@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Stopwatch from '../components/Stopwatch';
 import { useRoute } from '@react-navigation/native';
 import { fetchJsonData } from './functions';
-const url = 'http://127.0.0.1:5000/player-stats';
+const url = 'http://172.20.10.3:5000/player-stats';
 
 
 const WorkoutStart = ({ navigation }: {navigation: any}) => { //type check fix later
@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
     },
     titleText: {
       color:'white',
-      fontFamily: 'Roboto',
       marginTop: 15,
       marginBottom: 30,
       fontSize: 48,
@@ -126,7 +125,6 @@ const styles = StyleSheet.create({
     },
     bigCircleTxt: {
       color:'#415A77',
-      fontFamily: 'Roboto',
       fontSize: 70,
       fontWeight: "900",
     },
@@ -137,7 +135,6 @@ const styles = StyleSheet.create({
     },
     tagsText: {
       color:'#415A77',
-      fontFamily: 'Roboto',
       marginHorizontal: 50,
       fontSize: 25,
       fontWeight: "900",
@@ -161,13 +158,11 @@ const styles = StyleSheet.create({
     },
     smallCircleMade: {
       color:'#497741',
-      fontFamily: 'Roboto',
       fontSize: 70,
       fontWeight: "900",
     },
     smallCircleMissed: {
         color:'#A05050',
-        fontFamily: 'Roboto',
         fontSize: 70,
         fontWeight: "900",
       },
@@ -182,14 +177,12 @@ const styles = StyleSheet.create({
     },
     startButtonText: {
       color: '#DCDCDC',
-      fontFamily: 'Roboto',
       fontSize: 30,
       marginVertical: 15,
       fontWeight: '800',
     },
     bottomText: {
         color:'#fff',
-        fontFamily: 'Roboto',
         marginHorizontal: 50,
         fontSize: 24,
         fontWeight: "900",

@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
     marginRight: 15,
     marginLeft: 15,
     marginTop: 20,
-    fontFamily: 'Roboto',
     fontSize: 30,
     fontWeight: '900',
   },
@@ -117,7 +116,6 @@ const styles = StyleSheet.create({
   },
 
   labelText: {
-    fontFamily: 'Roboto',
     fontWeight: '900',
     fontSize: 18,
     color: '#415A77',
