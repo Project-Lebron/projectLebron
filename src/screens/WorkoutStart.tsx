@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Stopwatch from '../components/Stopwatch';
 import { useRoute } from '@react-navigation/native';
 import { fetchJsonData } from './functions';
-const url = 'http://127.0.0.1:5000/player-stats';
+const url = 'http://172.20.10.3:5000/player-stats';
 
 
 const WorkoutStart = ({ navigation }: {navigation: any}) => { //type check fix later

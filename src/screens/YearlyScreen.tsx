@@ -7,7 +7,6 @@ import {
 const YearlyScreen = () => {
 
   const data = [
-<<<<<<< Updated upstream
     {
       name: "made",
       percentage: 33, //(yearlydate.shotsmade/yearlydate.shotstaken) * 100,
@@ -22,22 +21,6 @@ const YearlyScreen = () => {
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     }
-=======
-    // {
-    //   name: "made",
-    //   percentage: (yearlydate.shotsmade/yearlydate.shotstaken) * 100,
-    //   color: "rgba(131, 167, 234, 1)",
-    //   legendFontColor: "#7F7F7F",
-    //   legendFontSize: 15
-    // },
-    // {
-    //   name: "missed",
-    //   percentage: 100 - ((yearlydate.shotsmade/yearlydate.shotstaken) * 100),
-    //   color: "#F00",
-    //   legendFontColor: "#7F7F7F",
-    //   legendFontSize: 15
-    // }
->>>>>>> Stashed changes
   ];
   
   return (

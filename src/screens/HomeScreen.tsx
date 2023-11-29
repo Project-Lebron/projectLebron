@@ -38,7 +38,7 @@ const HomeScreen = ({ navigation}: {navigation: any}) => {
         style={styles.startButton} 
         onPress={() => {
           console.log('Pressed!')
-          const request = new Request("http://127.0.0.1:5000/start");
+          const request = new Request("http://172.20.10.3:5000/start");
 
           fetch(request)
             .then((response) => {

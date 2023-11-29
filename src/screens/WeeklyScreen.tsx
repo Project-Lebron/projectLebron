@@ -9,7 +9,7 @@ import {
 import { convertToISO8601, formatDate, isInPastWeek, formatTime, fetchJsonData } from './functions';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
-const url = 'http://127.0.0.1:5000/player-stats';
+const url = 'http://172.20.10.3:5000/player-stats';
 
 const weekNames: string[] = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
 

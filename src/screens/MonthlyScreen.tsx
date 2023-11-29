@@ -5,7 +5,7 @@ import {
   StackedBarChart,
   ContributionGraph
 } from "react-native-chart-kit";
-const url = 'http://127.0.0.1:5000/player-stats';
+const url = 'http://172.20.10.3:5000/player-stats';
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 import Icon from 'react-native-vector-icons/FontAwesome';
 
