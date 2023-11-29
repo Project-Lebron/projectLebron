@@ -1,15 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
 import React, { useState, useEffect } from 'react';
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-const url = 'http://127.0.0.1:5000/player-stats';
-=======
-const url = 'http://172.20.10.3:5000/player-stats';
->>>>>>> 987a34eb428de7eef575c95fdc88a93be02fa0e6
-import { convertToISO8601, formatDate, isInPastWeek, formatTime, fetchJsonData } from './functions';
-=======
 import { convertToISO8601, formatDate, isInPastWeek, formatTime, fetchJsonData, url } from './functions';
->>>>>>> Stashed changes
 
 const WorkoutEnd = ({ navigation }: {navigation: any}) => {
     const [playerData, setPlayerData] = useState({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, highestStreak: 0, streak: 0, date: "Sat Jan 1 00:00:00 0000", timeOfSession: 0});
@@ -51,11 +42,7 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
                 if (data[j].highestStreak > weekData.highestStreak) {
                   weekData.highestStreak = data[j].highestStreak;
                 }
-<<<<<<< HEAD
               }
-=======
-              } 
->>>>>>> 987a34eb428de7eef575c95fdc88a93be02fa0e6
             }
             setWeekData(weekData);
 

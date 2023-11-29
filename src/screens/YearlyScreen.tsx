@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import { useState, useEffect } from 'react';
 import React from 'react'
-const url = 'http://127.0.0.1:5000/player-stats';
-import { convertToISO8601, formatDate, isDateInPastYear, formatTime, fetchJsonData } from './functions';
+import { convertToISO8601, formatDate, isDateInPastYear, formatTime, fetchJsonData, url } from './functions';
 
 import {
   PieChart
@@ -14,7 +13,7 @@ const YearlyScreen = () => {
   useEffect(() => {
     // Function to fetch data
     const fetchData = () => {
-      fetchJsonData(url)
+      fetchJsonData(url + "player-stats")
         .then(data => {
           const latestData = data[data.length - 1];
           setPlayerData(latestData);

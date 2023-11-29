@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-
-=======
-//Tues Nov 14 11:53:58 2023
->>>>>>> 987a34eb428de7eef575c95fdc88a93be02fa0e6
 const monthNames: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 export const url = "http://127.0.0.1:5000/"
 // Change to http://172.20.10.3:5000/ in production
@@ -36,11 +31,7 @@ export function formatDate(inputDateStr: string): string {
     } 
     if (month.length === 1) {
         month = '0' + month;
-<<<<<<< HEAD
     }    
-=======
-    }
->>>>>>> 987a34eb428de7eef575c95fdc88a93be02fa0e6
 
     // Return the formatted date in "DD.MM.YYYY" format
     return `${day}.${month}.${year}`;
