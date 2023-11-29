@@ -6,10 +6,11 @@ import {
   StackedBarChart,
   ProgressChart
 } from "react-native-chart-kit";
-import { convertToISO8601, formatDate, isDateInPastWeek, formatTime, fetchJsonData } from './functions';
+import { convertToISO8601, formatDate, isInPastWeek, formatTime, fetchJsonData } from './functions';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 const url = 'http://127.0.0.1:5000/player-stats';
 
+const weekNames: string[] = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
 
 const WeeklyScreen = () => {
 
@@ -25,45 +26,13 @@ const WeeklyScreen = () => {
     { shotsMade: 0, shotsMissed: 0 },
   ]);
 
-  function getCurrentWeekRange(): string {
-    // Get the current date
-    const currentDate = new Date();
-  
-    // Calculate the previous or current Monday
-    const dayOfWeek = currentDate.getDay();
-    const daysSinceMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-    const monday = new Date(currentDate);
-    monday.setDate(currentDate.getDate() - daysSinceMonday);
-  
-    // Calculate the next Sunday
-    const sunday = new Date(monday);
-    sunday.setDate(monday.getDate() + 6);
-  
-    // Function to format a date as "MMM. DD"
-    const formatDate = (date: Date): string => {
-      return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric'
-      });
-    };
-  
-    // Format the start and end dates
-    return `${formatDate(monday)} - ${formatDate(sunday)}`;
-  }
+  function getDayIndex(dateStr: string): number {
+    // Split the input date string into components
+    const parts: string[] = dateStr.split(' ');
 
-  function getDayOfWeekWithinPastWeek(dateStr: string): number {
-    const inputDate = moment(dateStr, 'ddd MMM DD HH:mm:ss YYYY');
-    const currentDate = moment();
-  
-    const daysDifference = currentDate.diff(inputDate, 'days');
-  
-    if (daysDifference >= 0 && daysDifference <= 6) {
-      // The date is within the past week, return the day of the week
-      return inputDate.day()-1;
-    } else {
-      // The date is not within the past week
-      return -1;
-    }
+    var dayIndex: number = weekNames.indexOf(parts[0]);
+
+    return dayIndex;
   }
     
   // Define an async function to fetch JSON data
@@ -97,15 +66,12 @@ const WeeklyScreen = () => {
             { shotsMade: 0, shotsMissed: 0 },
           ]
           for (let i=0;i<data.length;i++) {
-            let index = getDayOfWeekWithinPastWeek(data[i].date);
-            if (index != -1) {
-              week_data[index].shotsMade += data[i].shotsMade;
-              week_data[index].shotsMissed += data[i].shotsMissed;
-            }
-          }
-          setWeekData(week_data);
-          for (let i=0;i<data.length;i++) {
-            if (isDateInPastWeek(data[i]['date'])) {
+            if (isInPastWeek(data[i]['date'])) {
+              let index = getDayIndex(data[i]['date']);
+              if (index != -1) {
+                week_data[index].shotsMade += data[i].shotsMade;
+                week_data[index].shotsMissed += data[i].shotsMissed;
+              }
               week_total.shotsMade += data[i].shotsMade;
               week_total.shotsTaken += data[i].shotsTaken;
               week_total.shotsMissed += data[i].shotsMissed;
@@ -116,6 +82,7 @@ const WeeklyScreen = () => {
             }
           }
           setWeekTotal(week_total);
+          setWeekData(week_data);
         })
         .catch(error => console.error('Error in fetching data:', error));
     };

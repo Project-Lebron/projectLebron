@@ -43,18 +43,19 @@ stats_db = cluster['stats']
 
 @app.route("/start", methods=["GET"])
 def result():
-    # stats_db.delete_many({})
-    # stat1 = {
-    #     "ID": 1,
-    #     "shotsTaken": 1000000,
-    #     "shotsMade":20,
-    #     "shotsMissed":80,
-    #     "highestStreak": 7,
-    #     "streak": 3,
-    #     "date": "Tues Nov 14 11:53:58 2023",
-    #     "timeOfSession": 200,
-    #     "status": "complete",
-    # }
+    stats_db.delete_many({})
+    stat1 = {
+        "ID": 2,
+        "shotsTaken": 100,
+        "shotsMade": 50,
+        "shotsMissed": 50,
+        "highestStreak": 2,
+        "streak": 3,
+        "date": "Sun Nov 26 11:53:58 2023",
+        "timeOfSession": 50,
+        "status": "complete",
+    }
+    stats_db.insert_one(stat1)
     # stat2 = {
     #     "ID": 2,
     #     "shotsTaken": 400,

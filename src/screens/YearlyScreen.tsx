@@ -1,22 +1,61 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { useState, useEffect } from 'react';
 import React from 'react'
+const url = 'http://127.0.0.1:5000/player-stats';
+import { convertToISO8601, formatDate, isDateInPastYear, formatTime, fetchJsonData } from './functions';
+
 import {
   PieChart
 } from "react-native-chart-kit";
 
 const YearlyScreen = () => {
+  const [playerData, setPlayerData] = useState({ shotsMade: 0, shotsTaken: 0, date: "Sat Jan 1 00:00:00 0000", timeOfSession: 0});
+  const [yearlydata, setyearlydata] = useState({ shotsMade: 0, shotsTaken: 0})
+  useEffect(() => {
+    // Function to fetch data
+    const fetchData = () => {
+      fetchJsonData(url)
+        .then(data => {
+          const latestData = data[data.length - 1];
+          setPlayerData(latestData);
+          var yearlydata = {
+            shotsMade: 0,
+            shotsTaken: 0,
+          }
+          for (let i=0;i<data.length;i++) {
+            console.log(data[i]['date']);
+            if (isDateInPastYear(data[i]['date'])) {
+              yearlydata.shotsMade += data[i].shotsMade;
+              yearlydata.shotsTaken += data[i].shotsTaken;
+              }
+            } 
+          setyearlydata(yearlydata);
+        })
+        .catch(error => console.error('Error in fetching data:', error));
+    };
+  
+    // Initial fetch
+    fetchData();
+  
+    // Set up polling
+    const interval = setInterval(fetchData, 10000); // Polling every 10 seconds
+  
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
 
   const data = [
     {
       name: "made",
-      percentage: 33,
+      percentage: (yearlydata.shotsMade),
       color: "rgba(131, 167, 234, 1)",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15
     },
     {
       name: "missed",
-      percentage: 66,
+      percentage: (yearlydata.shotsTaken-yearlydata.shotsMade),
       color: "#F00",
       legendFontColor: "#7F7F7F",
       legendFontSize: 15

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
 import React, { useState, useEffect } from 'react';
 const url = 'http://127.0.0.1:5000/player-stats';
-import { convertToISO8601, formatDate, isDateInPastWeek, formatTime, fetchJsonData } from './functions';
+import { convertToISO8601, formatDate, isInPastWeek, formatTime, fetchJsonData } from './functions';
 
 const WorkoutEnd = ({ navigation }: {navigation: any}) => {
     const [playerData, setPlayerData] = useState({ shotsMade: 0, shotsTaken: 0, shotsMissed: 0, highestStreak: 0, streak: 0, date: "Sat Jan 1 00:00:00 0000", timeOfSession: 0});
@@ -33,17 +33,16 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
               timeOfSession: 0,
               highestStreak: 0,
             }
-            for (let i=data.length-1;i>=0;i--) {
-              if (isDateInPastWeek(data[i]['date'])) {
-                weekData.shotsMade += data[i].shotsMade;
-                weekData.shotsTaken += data[i].shotsTaken;
-                weekData.shotsMissed += data[i].shotsMissed;
-                weekData.timeOfSession += data[i].timeOfSession;
-                if (data[i].highestStreak > weekData.highestStreak) {
-                  weekData.highestStreak = data[i].highestStreak;
+            for (let j=0;j<data.length;j++) {
+              console.log(data[j]['date']);
+              if (isInPastWeek(data[j]['date'])) {
+                weekData.shotsMade += data[j].shotsMade;
+                weekData.shotsTaken += data[j].shotsTaken;
+                weekData.shotsMissed += data[j].shotsMissed;
+                weekData.timeOfSession += data[j].timeOfSession;
+                if (data[j].highestStreak > weekData.highestStreak) {
+                  weekData.highestStreak = data[j].highestStreak;
                 }
-              } else {
-                break;
               }
             }
             setWeekData(weekData);
@@ -51,12 +50,12 @@ const WorkoutEnd = ({ navigation }: {navigation: any}) => {
             var past2Data = [
               { shotsMade: 0,
                 shotsTaken: 0,
-                date: "00.00.0000",
+                date: "Sat Jan 1 00:00:00 0000",
                 timeOfSession: 0,
               },
               { shotsMade: 0,
                 shotsTaken: 0,
-                date: "00.00.0000",
+                date: "Sat Jan 1 00:00:00 0000",
                 timeOfSession: 0,
               }
             ] 
