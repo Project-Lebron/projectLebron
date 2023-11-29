@@ -6,10 +6,9 @@ import {
   StackedBarChart,
   ProgressChart
 } from "react-native-chart-kit";
-import { convertToISO8601, formatDate, isInPastWeek, formatTime, fetchJsonData } from './functions';
+import { convertToISO8601, formatDate, isInPastWeek, formatTime, fetchJsonData, url } from './functions';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
-const url = 'http://172.20.10.3:5000/player-stats';
 
 const weekNames: string[] = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
 
@@ -53,7 +52,7 @@ const WeeklyScreen = () => {
   useEffect(() => {
     // Function to fetch data
     const fetchData = () => {
-      fetchJsonData(url)
+      fetchJsonData(url + "player-stats")
         .then(data => {
           var week_total = { shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0}
           var week_data = [

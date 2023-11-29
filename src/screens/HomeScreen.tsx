@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touchable } from 'react-native'
 import { useEffect, useState } from 'react'
+import {url} from './functions'
 import React from 'react'
 
 // https://stackoverflow.com/questions/63132548/react-navigation-5-error-binding-element-navigation-implicitly-has-an-any-ty
@@ -38,7 +39,7 @@ const HomeScreen = ({ navigation}: {navigation: any}) => {
         style={styles.startButton} 
         onPress={() => {
           console.log('Pressed!')
-          const request = new Request("http://172.20.10.3:5000/start");
+          const request = new Request(url + "start");
 
           fetch(request)
             .then((response) => {

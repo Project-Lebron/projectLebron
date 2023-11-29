@@ -2,8 +2,7 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, StatusBar, Touc
 import React, { useState, useEffect } from 'react';
 import Stopwatch from '../components/Stopwatch';
 import { useRoute } from '@react-navigation/native';
-import { fetchJsonData } from './functions';
-const url = 'http://172.20.10.3:5000/player-stats';
+import { fetchJsonData, url } from './functions';
 
 
 const WorkoutStart = ({ navigation }: {navigation: any}) => { //type check fix later
@@ -12,7 +11,7 @@ const WorkoutStart = ({ navigation }: {navigation: any}) => { //type check fix l
     useEffect(() => {
       // Function to fetch data
       const fetchData = () => {
-        fetchJsonData(url)
+        fetchJsonData(url + "player-stats")
           .then(data => {
             const latestData = data[data.length - 1];
             setPlayerData(latestData);

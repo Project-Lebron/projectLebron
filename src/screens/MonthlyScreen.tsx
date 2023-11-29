@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { fetchJsonData, convertToISO8601, formatTime } from './functions';
+import { fetchJsonData, convertToISO8601, formatTime, url } from './functions';
 import {
   StackedBarChart,
   ContributionGraph
 } from "react-native-chart-kit";
-const url = 'http://172.20.10.3:5000/player-stats';
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -92,7 +91,7 @@ function getDayNumber(dateStr: string): number {
   useEffect(() => {
     // Function to fetch data
     const fetchData = () => {
-      fetchJsonData(url)
+      fetchJsonData(url + "player-stats")
         .then(data => {
           let month_totals = { shotsMade: 0, shotsTaken: 0, shotsMissed: 0, timeOfSession: 0, highestStreak: 0};
 

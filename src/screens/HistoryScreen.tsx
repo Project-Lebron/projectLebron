@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React, {useEffect,useState} from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { fetchJsonData, formatDate, formatTime } from './functions';
-const url = 'http://127.0.0.1:5000/player-stats';
+import { fetchJsonData, formatDate, formatTime, url } from './functions';
 
 interface Data {
   ID: number;
@@ -20,7 +19,7 @@ const HistoryScreen = () => {
 
   useEffect(() => {
     const fetchData = () => {
-      fetchJsonData(url) // Ensure this URL is defined somewhere
+      fetchJsonData(url + "player-stats") // Ensure this URL is defined somewhere
         .then(data => {
           setHistoryTotals(data.reverse()); // Assuming data is an array of Data objects
         })

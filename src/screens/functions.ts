@@ -4,6 +4,8 @@
 //Tues Nov 14 11:53:58 2023
 >>>>>>> 987a34eb428de7eef575c95fdc88a93be02fa0e6
 const monthNames: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const url = "http://127.0.0.1:5000/"
+// Change to http://172.20.10.3:5000/ in production
 
 export function convertToISO8601(dateStr: string): string {
     const parts = dateStr.match(/(\w+) (\w+) (\d+) (\d+):(\d+):(\d+) (\d+)/);
@@ -93,6 +95,7 @@ export function isDateInPastYear(dateStr: string): boolean {
 
 
 export function formatTime(seconds: number): string {
+    seconds = Math.round(seconds)
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
