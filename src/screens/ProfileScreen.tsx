@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Dimensions, View, SafeAreaView, StatusBar } from 'react-native'
+import { StyleSheet, Text, Image, View, SafeAreaView, StatusBar, ImageBackground } from 'react-native'
 import React from 'react'
 
 
@@ -15,11 +15,11 @@ const ProfileScreen = () => {
       </SafeAreaView>
 
       <View style={styles.circleContainer}>
-        <Text style={[styles.topText, {fontSize: 20, color: '#415A77', marginTop: 10}]}>@bronnyjames</Text>
-        <SafeAreaView style={styles.bigCircle}></SafeAreaView>
+        <Text style={[styles.topText, {fontSize: 20, color: '#415A77', marginTop: 20}]}>@bronnyjames</Text>
+        <Image source={require("../assets/bronny.png")} style={styles.bigCircle}/>
       </View>
 
-      <View style={[styles.container, {alignItems: 'center', marginBottom: 0}]}>
+      <View style={[styles.container, {alignItems: 'center', marginTop: 20}]}>
         <View style={[styles.statsContainer]}>
           <View style={styles.columnContainer}>
 
@@ -50,7 +50,7 @@ const ProfileScreen = () => {
           </View>
         </View>
 
-        <View style={[styles.statsContainer, {marginTop: 15, width: '65%'}]}>
+        <View style={[styles.statsContainer, {marginTop: 40, width: '65%'}]}>
 
           <View style={styles.columnContainer}>
             <View style={[styles.labelContainer, {marginTop: 0}]}>
