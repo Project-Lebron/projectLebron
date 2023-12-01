@@ -326,14 +326,6 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'black',
   },
-
-  // Weekly Totals
-  weeklyTotals: {
-    color:'white',
-    fontSize: 28,
-    marginTop: 20,
-    fontWeight: 'bold',
-  },
   
   statsContainer: {
     backgroundColor: 'white',
@@ -378,7 +370,6 @@ const styles = StyleSheet.create({
   },
   topStats: {
     color:'#415A77',
-    fontFamily: 'Roboto',
     marginTop: 10,
     marginBottom: 30,
     marginRight: 7,
@@ -447,16 +438,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 150,
     backgroundColor: '#415A77',
-  },
-  endButton: {
-    width: 250,
-    heigth: 40,
-    borderRadius: 15,
-    alignItems: 'center',
-    backgroundColor: '#415A77',
-    fontFamily: 'Roboto',
-    marginTop: 30,
-    marginBottom: 30,
   },
   flame: {
     flexDirection: 'row',
